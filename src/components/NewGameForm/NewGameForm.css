@@ -1,0 +1,22 @@
+.NewGameForm {
+  position: fixed;
+  background-color: blue;
+  top: 15%;
+  left: 15%;
+  right: 15%;
+  min-height: 4rem;
+}
+
+.NewGameForm-close {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  text-align: center;
+  line-height: 2rem;
+  width: 2rem;
+  background-color: white;
+  color: blue;
+  cursor: pointer;
+  border-radius: 1rem;
+  user-select: none;
+}

@@ -1,0 +1,36 @@
+.Homebar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #151515;
+}
+
+.Homebar-userinfo {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 4rem 1fr;
+}
+
+.Homebar-userinfo-img {
+  grid-row: 1 / 3;
+  height: 4rem;
+  border-radius: 2rem;
+  border: 5px green solid;
+  box-sizing: border-box;
+}
+
+.Homebar-userinfo-txt {
+  margin: 0;
+  padding: 0;
+  line-height: 2rem;
+  margin-left: 1rem;
+}
+
+.Homebar-buttons {
+  display: flex;
+  align-items: stretch;
+}
+
+.Homebar-button {
+  margin: 0 0 0 1rem;
+}
