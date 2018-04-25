@@ -8,6 +8,7 @@ class Homebar extends Component {
       showNewGameForm,
       signOut,
       displayName,
+      username,
       photoURL,
       uid
     } = this.props;
@@ -15,7 +16,7 @@ class Homebar extends Component {
       <div className="Homebar">
         <div className="Homebar-userinfo">
           <img className="Homebar-userinfo-img" src={photoURL} alt="" />
-          <p className="Homebar-userinfo-txt">{displayName}</p>
+          <p className="Homebar-userinfo-txt">{username}</p>
           <p className="Homebar-userinfo-txt">{!!uid && 100}</p>
         </div>
         <div className="Homebar-buttons">

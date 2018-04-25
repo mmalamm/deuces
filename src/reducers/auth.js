@@ -20,7 +20,9 @@ export default function authReducer(state = initialState.auth, action) {
         email: action.payload.email,
         displayName: action.payload.displayName,
         photoURL: action.payload.photoURL,
-        uid: action.payload.uid
+        uid: action.payload.uid,
+        username: action.payload.username,
+        points: action.payload.points
       };
     default:
       return state;

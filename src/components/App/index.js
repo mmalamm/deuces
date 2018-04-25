@@ -5,6 +5,7 @@ import Loading from "../Loading";
 import Login from "../Login";
 import "./App.css";
 import NewGameForm from "../../containers/NewGameForm";
+import NewUserForm from "../../containers/NewUserForm";
 
 class App extends Component {
   render() {
@@ -16,7 +17,6 @@ class App extends Component {
       signOut
     } = this.props;
     const renderLogin = () => {
-      console.log(auth);
       return (
         <Login
           signInWithGithub={signInWithGithub}
@@ -25,8 +25,8 @@ class App extends Component {
       );
     };
     const renderHomescreen = () => {
-      const { displayName, photoURL, uid } = auth;
-      return (
+      const { displayName, photoURL, uid, username, points } = auth;
+      const appDash = (
         <Fragment>
           {games.showNewGameForm && <NewGameForm />}
           <div className="App-homebar">
@@ -42,8 +42,11 @@ class App extends Component {
           </div>
         </Fragment>
       );
+      return username ? appDash : <NewUserForm user={auth} />;
     };
+
     const renderLoading = () => <Loading />;
+
     return (
       <div className="App">
         {auth.status === "ANONYMOUS" && renderLogin()}

@@ -3,9 +3,15 @@ const initialState = {
     status: "AWAITING_AUTH_RESPONSE",
     displayName: null,
     photoURL: null,
-    uid: null
+    uid: null,
+    username: null
   },
-  users: {},
+  userRef: {
+    status: "NOT_FOUND",
+    username: null,
+    profilePic: null,
+    points: null
+  },
   games: {
     showNewGameForm: false
   }

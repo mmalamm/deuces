@@ -4,8 +4,8 @@ import { signOut } from "../actions/auth";
 import { createGame, showNewGameForm } from "../actions/games";
 
 const mapStateToProps = ({ auth }) => {
-  const { displayName, photoURL, uid } = auth;
-  return { displayName, photoURL, uid };
+  const { displayName, photoURL, uid, username } = auth;
+  return { displayName, photoURL, uid, username };
 };
 
 const mapDispatchToProps = dispatch => {
