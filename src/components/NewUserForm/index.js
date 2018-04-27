@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import "./NewUserForm.css";
 
+// user sees their info in a form
+// user can upload and set their profile pic
+// user is prompted to choose a username
+// input field with username that validates username syntax
+// smart submit button that validates username uniqueness
+
 class NewUserForm extends Component {
   state = {
     username: ""

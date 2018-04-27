@@ -3,21 +3,13 @@ import "./Homebar.css";
 
 class Homebar extends Component {
   render() {
-    const {
-      createGame,
-      showNewGameForm,
-      signOut,
-      displayName,
-      username,
-      photoURL,
-      uid
-    } = this.props;
+    const { showNewGameForm, signOut, username, photoURL, points } = this.props;
     return (
       <div className="Homebar">
         <div className="Homebar-userinfo">
           <img className="Homebar-userinfo-img" src={photoURL} alt="" />
           <p className="Homebar-userinfo-txt">{username}</p>
-          <p className="Homebar-userinfo-txt">{!!uid && 100}</p>
+          <p className="Homebar-userinfo-txt">{points}</p>
         </div>
         <div className="Homebar-buttons">
           <button className="Homebar-button" onClick={showNewGameForm}>
