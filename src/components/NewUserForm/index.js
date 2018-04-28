@@ -62,6 +62,7 @@ class NewUserForm extends Component {
         <input
           className="NewUserForm-textInput"
           type="text"
+          autoFocus
           value={this.state.username}
           onChange={e => this.setState({ username: e.target.value })}
         />
