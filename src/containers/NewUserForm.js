@@ -2,6 +2,10 @@ import { connect } from "react-redux";
 import NewUserForm from "../components/NewUserForm";
 import { submitNewUserForm, signOut } from "../actions/auth";
 
+const mapStateToProps = ({ auth }) => {
+  return { user: auth };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     signOut() {
@@ -13,4 +17,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(NewUserForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewUserForm);

@@ -16,10 +16,12 @@ export const initUser = functions.auth
 export const deleteUser = functions.auth.user().onDelete(async e => {
   console.log("deleting user:", e.displayName, e.email);
   const _userRef = db.ref(`/_users/${e.uid}`);
-  const username = await _userRef.child("username").once("value");
+  const usernameSnapshot = await _userRef.child("username").once("value");
+  const username = usernameSnapshot.val();
+  console.log(username);
   return Promise.all([
     _userRef.set(null),
-    db.ref(`users/${username}`).set(null)
+    db.ref(`users/${username.replace(/\s/g, "").toLowerCase()}`).set(null)
   ]);
 });
 

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="NewUserForm.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="269.29592"
+     inkscape:cy="688.27961"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:window-width="1564"
+     inkscape:window-height="863"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect815"
+       width="169.44887"
+       height="179.60512"
+       x="19.243406"
+       y="39.886723" />
+    <g
+       id="g929"
+       transform="translate(0.06681633)">
+      <rect
+         y="82.021294"
+         x="49.661446"
+         height="109.23512"
+         width="108.47916"
+         id="rect817"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         id="g913">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="78.48793"
+           y="125.86652"
+           id="text823"><tspan
+             sodipodi:role="line"
+             id="tspan821"
+             x="78.48793"
+             y="125.86652"
+             style="stroke-width:0.26458332">Choose a username:</tspan></text>
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect825"
+           width="58.586308"
+           height="10.583333"
+           x="74.607872"
+           y="129.6463" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect827"
+           width="72.193451"
+           height="21.922617"
+           x="67.804298"
+           y="153.4588" />
+        <path
+           id="path819-1-4"
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.91789478;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 128.84207,80.887369 A 24.941051,25.508017 0 0 1 103.90102,106.39538 24.941051,25.508017 0 0 1 78.959976,80.887369 24.941051,25.508017 0 0 1 103.90102,55.379347 24.941051,25.508017 0 0 1 128.84207,80.887369 Z"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#c8b7b7;fill-opacity:1;stroke:#000000;stroke-width:0.91789478;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 82.521196,93.966682 A 24.941051,25.508017 0 0 0 103.90231,106.39538 24.941051,25.508017 0 0 0 125.28085,93.966682 Z"
+           id="path819-1"
+           inkscape:connector-curvature="0" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="87.79538"
+           y="166.25893"
+           id="text891"><tspan
+             sodipodi:role="line"
+             id="tspan889"
+             x="87.79538"
+             y="166.25893"
+             style="stroke-width:0.26458332">smart button</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="100.24026"
+           y="80.419647"
+           id="text895"><tspan
+             sodipodi:role="line"
+             id="tspan893"
+             x="100.24026"
+             y="80.419647"
+             style="stroke-width:0.26458332">pic</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="94.986664"
+           y="100.34776"
+           id="text899"><tspan
+             sodipodi:role="line"
+             id="tspan897"
+             x="94.986664"
+             y="100.34776"
+             style="stroke-width:0.26458332">change</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

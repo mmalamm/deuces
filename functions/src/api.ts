@@ -23,10 +23,10 @@ app.post("/init_user", async (req, res) => {
   const userNodeSnapshot = await userRef.once("value");
 
   if (userNodeSnapshot.val()) {
-    res.status(420).send("username already exists");
+    return res.status(420).send("username already exists");
   }
-  if (usernameKey.match(/^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/i)) {
-    res.status(420).send("your username sucks");
+  if (!usernameKey.match(/^[a-z0-9]{4,20}$/)) {
+    return res.status(430).send("your username sucks");
   }
 
   const _userRef = admin.database().ref(`/_users/${uid}`);

@@ -3,9 +3,7 @@ import initialState from "../initial-state.js";
 export default function authReducer(state = initialState.auth, action) {
   switch (action.type) {
     case "ATTEMPTING_LOGIN":
-      return {
-        status: "AWAITING_AUTH_RESPONSE"
-      };
+      return { status: "AWAITING_AUTH_RESPONSE" };
     case "SIGN_OUT":
       return {
         status: "ANONYMOUS",
@@ -14,6 +12,8 @@ export default function authReducer(state = initialState.auth, action) {
         photoURL: null,
         uid: null
       };
+    case "WRITING_DATA":
+      return { status: "CREATING_USER" };
     case "SIGN_IN":
       return {
         status: "SIGNED_IN",

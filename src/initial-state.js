@@ -6,12 +6,6 @@ const initialState = {
     uid: null,
     username: null
   },
-  userRef: {
-    status: "NOT_FOUND",
-    username: null,
-    profilePic: null,
-    points: null
-  },
   games: {
     showNewGameForm: false
   }

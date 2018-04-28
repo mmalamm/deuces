@@ -1,7 +1,74 @@
+.NewUserForm {
+  align-items: center;
+  width: 80%;
+  margin: 3rem auto;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  color: black;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
 .NewUserForm-button {
-  height: 2rem;
-  width: 10rem;
-  background-color: slateblue;
+  height: 2.5rem;
+  width: 80%;
+  background-color: black;
   text-align: center;
-  line-height: 2rem;
+  line-height: 2.5rem;
+  user-select: none;
+  cursor: pointer;
+  margin: 1.5rem;
+  color: gray;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+.NewUserForm-changePicButton {
+  background-color: black;
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  margin-top: -1.75rem;
+  border-radius: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 0;
+}
+.NewUserForm-profilePic {
+  position: relative;
+  margin: 0 auto;
+  margin-top: -10rem;
+  height: 16rem;
+  width: 16rem;
+  border-radius: 8rem;
+  border: 0.5rem solid black;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.NewUserForm-textInput {
+  font-size: 1.5rem;
+  font-weight: 900;
+  border: 0.25rem solid black;
+  box-sizing: border-box;
+  width: 80%;
+  height: 2.5rem;
+  outline: none;
+  background-color: transparent;
+  text-align: center;
+}
+.NewUserForm-label {
+  text-align: center;
+  margin: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 700;
+  width: 80%;
+}
+.NewUserForm-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.NewUserForm-signoutText {
+  font-weight: 900;
 }
