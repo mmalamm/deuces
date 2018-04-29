@@ -3,6 +3,7 @@ import "./NewUserForm.css";
 import Modal from "../Modal";
 import Pencil from "../AssetsSVG/Pencil";
 import { database } from "../../fire";
+import { RotateLoading } from "respinner";
 
 // user sees their info in a form
 // user can upload and set their profile pic
@@ -54,27 +55,41 @@ class NewUserForm extends Component {
   handleSubmit = e => {
     if (this.state.buttonDisabled) return;
     this.setState({
-      buttonText: "wait...",
+      buttonText: (
+        <RotateLoading
+          duration={1}
+          stroke="#708090"
+          opacity={0.4}
+          size={30}
+          className="NewUserForm-spinner"
+        />
+      ),
       buttonDisabled: true,
       inputDisabled: true
     });
-    setTimeout(() => {
-      const usernameKey = this.state.username.toLowerCase();
-      database
-        .ref(`/users/${usernameKey}/public`)
-        .once("value")
-        .then(snapshot => {
-          if (snapshot.val()) {
-            this.setState({
+    const usernameKey = this.state.username.toLowerCase();
+    database
+      .ref(`/users/${usernameKey}/public`)
+      .once("value")
+      .then(snapshot => {
+        if (snapshot.val()) {
+          this.setState(
+            {
               buttonText: "name taken :(",
               buttonDisabled: true,
               inputDisabled: false
-            });
-          } else {
-            this.props.submitNewUserForm({ username: this.state.username });
-          }
-        });
-    }, 2000);
+            },
+            () => this.inputField.focus()
+          );
+        } else {
+          this.props.submitNewUserForm({ username: this.state.username });
+        }
+      });
+  };
+  handleKeyPress = e => {
+    if (e.key === "Enter") {
+      this.handleSubmit();
+    }
   };
   render() {
     const { signOut, user } = this.props;
@@ -110,6 +125,10 @@ class NewUserForm extends Component {
           value={this.state.username}
           onChange={this.handleInputChange}
           disabled={this.state.inputDisabled}
+          onKeyPress={this.handleKeyPress}
+          ref={input => {
+            this.inputField = input;
+          }}
         />
         <div
           className={`NewUserForm-button ${

@@ -11,7 +11,6 @@ const Logo = ({ height, width, cls }) => (
     className={cls}
   >
     <g
-      fill="#000"
       stroke="none"
       transform="translate(0.000000,292.000000) scale(0.100000,-0.100000)"
     >
