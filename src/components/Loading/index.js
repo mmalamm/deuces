@@ -10,7 +10,6 @@ class Loading extends Component {
         <div className="Loading">
           <Logo cls="Loading-logo" />
         </div>
-        <br />
         <div className="Loading-spinner">
           <BounceLoading fill="#708090" gap={10} />
         </div>
