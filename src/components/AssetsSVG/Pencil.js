@@ -2,7 +2,7 @@ import React from "react";
 
 export default ({ color, cls }) => (
   <svg
-    style="width:2rem; height:2rem"
+    style={{ width: "2rem", height: "2rem" }}
     className={cls}
     viewBox="0 0 512 512"
     fill={color}
