@@ -65,24 +65,6 @@ export const submitNewUserForm = formData => {
   };
 };
 
-// export const startListeningToAuthChanges = () => {
-//   return dispatch => {
-//     auth.onAuthStateChanged(user => {
-//       if (user) {
-//         const callback = snapshot => {
-//           dispatch({ type: "ATTEMPTING_LOGIN" });
-//           const userData = snapshot.val();
-//           if (userData) {
-//             dispatch(signedIn(userData));
-//           }
-//         };
-//         database.ref(`/_users/${user.uid}`).once("value", callback);
-//       } else {
-//         dispatch(signedOut());
-//       }
-//     });
-//   };
-// };
 export const startListeningToAuthChanges = () => {
   return dispatch => {
     auth.onAuthStateChanged(user => {
@@ -94,8 +76,6 @@ export const startListeningToAuthChanges = () => {
           if (userData) {
             dispatch(signedIn(userData));
             dbRef.off("value", callback);
-          } else {
-            dispatch({ type: "WRITING_DATA" });
           }
         };
         dbRef.on("value", callback);

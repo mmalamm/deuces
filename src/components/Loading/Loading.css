@@ -1,0 +1,21 @@
+.Loading {
+  background-color: #708090;
+  padding: 1.5rem;
+  height: 15rem;
+  margin: 3rem auto;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 240px;
+  border-radius: 1.5rem;
+}
+
+.Loading-logo {
+  width: 10rem;
+}
+
+.Loading-spinner {
+  margin: 0 auto;
+}
