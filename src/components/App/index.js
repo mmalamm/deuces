@@ -7,6 +7,7 @@ import "./App.css";
 import NewGameForm from "../../containers/NewGameForm";
 import NewUserForm from "../../containers/NewUserForm";
 import WritingNewUser from "../WritingNewUser";
+import Logo from "../AssetsSVG/Logo";
 
 class App extends Component {
   render() {
@@ -37,6 +38,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Logo width={"89px"} height={"146px"} cls={"App-logo"} />
         {auth.status === "ANONYMOUS" && renderLogin()}
         {auth.status === "SIGNED_IN" && renderHomescreen()}
         {auth.status === "AWAITING_AUTH_RESPONSE" && <Loading />}

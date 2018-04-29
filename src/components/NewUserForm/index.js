@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./NewUserForm.css";
 import Modal from "../Modal";
+import Pencil from "../AssetsSVG/Pencil";
+import { database } from "../../fire";
 
 // user sees their info in a form
 // user can upload and set their profile pic
@@ -8,10 +10,21 @@ import Modal from "../Modal";
 // input field with username that validates username syntax
 // smart submit button that validates username uniqueness
 
+const isValidUsername = str =>
+  str
+    .slice()
+    .replace(/\s/g, "")
+    .toLowerCase().length > 5;
+
 class NewUserForm extends Component {
   state = {
     showModal: false,
-    username: this.props.user.displayName
+    username: this.props.user.displayName.replace(/\s/g, ""),
+    buttonDisabled: !isValidUsername(this.props.user.displayName),
+    buttonText: isValidUsername(this.props.user.displayName)
+      ? "submit"
+      : "6+ characters",
+    inputDisabled: false
   };
   closeModal = e => {
     e.preventDefault();
@@ -21,16 +34,59 @@ class NewUserForm extends Component {
     e.preventDefault();
     this.setState({ showModal: true });
   };
+  handleInputChange = e => {
+    const username = e.target.value;
+    if (username.match(/\s/g)) return;
+    const usernameKey = username.toLowerCase();
+    if (!usernameKey.match(/^[a-z0-9]{0,20}$/)) return;
+    const len = usernameKey.length;
+    let { buttonText, buttonDisabled } = this.state;
+    if (len < 6) {
+      buttonText = "6+ characters";
+      buttonDisabled = true;
+    } else {
+      buttonText = "submit";
+      buttonDisabled = false;
+    }
+
+    this.setState({ username, buttonDisabled, buttonText });
+  };
+  handleSubmit = e => {
+    if (this.state.buttonDisabled) return;
+    this.setState({
+      buttonText: "wait...",
+      buttonDisabled: true,
+      inputDisabled: true
+    });
+    setTimeout(() => {
+      const usernameKey = this.state.username.toLowerCase();
+      database
+        .ref(`/users/${usernameKey}/public`)
+        .once("value")
+        .then(snapshot => {
+          if (snapshot.val()) {
+            this.setState({
+              buttonText: "name taken :(",
+              buttonDisabled: true,
+              inputDisabled: false
+            });
+          } else {
+            this.props.submitNewUserForm({ username: this.state.username });
+          }
+        });
+    }, 2000);
+  };
   render() {
-    const { submitNewUserForm, signOut, user } = this.props;
-    console.log("newuserformlog", user);
+    const { signOut, user } = this.props;
     return (
       <div className="NewUserForm">
         {this.state.showModal && (
           <Modal>
             <div className="NewUserForm-changePicModal">
               <h1>Modal</h1>
-              <button onClick={this.closeModal}>close</button>
+              <div className="NewUserForm-close" onClick={this.closeModal}>
+                ✖
+              </div>
             </div>
           </Modal>
         )}
@@ -41,36 +97,27 @@ class NewUserForm extends Component {
           onClick={this.showModal}
         />
         <div className="NewUserForm-changePicButton" onClick={this.showModal}>
-          <svg width="2rem" height="2rem" viewBox="0 0 512 512" fill="gray">
-            <g>
-              <path
-                fill="gray"
-                d="M422.953,176.019c0.549-0.48,1.09-0.975,1.612-1.498l21.772-21.772c12.883-12.883,12.883-33.771,0-46.654   l-40.434-40.434c-12.883-12.883-33.771-12.883-46.653,0l-21.772,21.772c-0.523,0.523-1.018,1.064-1.498,1.613L422.953,176.019z"
-              />
-              <polygon
-                fill="gray"
-                points="114.317,397.684 157.317,440.684 106.658,448.342 56,456 63.658,405.341 71.316,354.683  "
-              />
-              <polygon
-                fill="gray"
-                points="349.143,125.535 118.982,355.694 106.541,343.253 336.701,113.094 324.26,100.653 81.659,343.253    168.747,430.341 411.348,187.74  "
-              />
-            </g>
-          </svg>
+          <Pencil color={"#708090"} />
         </div>
         <div className="NewUserForm-label">Choose a username:</div>
         <input
-          className="NewUserForm-textInput"
+          className={`NewUserForm-textInput ${
+            this.state.inputDisabled ? "NewUserForm-textInputDisabled" : ""
+          }`}
           type="text"
           autoFocus
+          spellCheck="false"
           value={this.state.username}
-          onChange={e => this.setState({ username: e.target.value })}
+          onChange={this.handleInputChange}
+          disabled={this.state.inputDisabled}
         />
         <div
-          className="NewUserForm-button"
-          onClick={() => submitNewUserForm(this.state)}
+          className={`NewUserForm-button ${
+            this.state.buttonDisabled ? "NewUserForm-buttonDisabled" : ""
+          }`}
+          onClick={this.handleSubmit}
         >
-          submit
+          {this.state.buttonText}
         </div>
         <div className="NewUserForm-signoutText">
           or{" "}
