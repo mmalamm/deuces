@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./NewUserForm.css";
 import Modal from "../Modal";
 import Pencil from "../AssetsSVG/Pencil";
-import { database } from "../../fire";
+import { database, storage } from "../../fire";
 import { RotateLoading } from "respinner";
 
 // user sees their info in a form
@@ -25,7 +25,8 @@ class NewUserForm extends Component {
     buttonText: isValidUsername(this.props.user.displayName)
       ? "submit"
       : "6+ characters",
-    inputDisabled: false
+    inputDisabled: false,
+    selectedPic: this.props.user.photoURL
   };
   closeModal = e => {
     e.preventDefault();
@@ -91,6 +92,13 @@ class NewUserForm extends Component {
       this.handleSubmit();
     }
   };
+  fileSelectedHandler = e => {
+    const file = e.target.files[0];
+    const userImgRef = storage.ref("/user-images").child(this.props.user.uid);
+    const uploadTask = userImgRef
+      .child(file.name)
+      .put(file, { contentType: file.type });
+  };
   render() {
     const { signOut, user } = this.props;
     return (
@@ -102,6 +110,8 @@ class NewUserForm extends Component {
               <div className="NewUserForm-close" onClick={this.closeModal}>
                 ✖
               </div>
+              <img src={this.state.selectedPic} alt="" />
+              <input type="file" onChange={this.fileSelectedHandler} />
             </div>
           </Modal>
         )}
