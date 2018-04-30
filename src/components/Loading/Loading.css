@@ -1,5 +1,5 @@
 .Loading {
-  background-color: #708090;
+  background-color: var(--slate);
   padding: 1.5rem;
   height: 15rem;
   margin: 3rem auto;
@@ -17,5 +17,5 @@
 }
 
 .Loading-spinner {
-  margin: 0 auto;
+  margin: 1rem auto;
 }

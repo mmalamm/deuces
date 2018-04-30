@@ -12,8 +12,6 @@ export default function authReducer(state = initialState.auth, action) {
         photoURL: null,
         uid: null
       };
-    case "WRITING_DATA":
-      return { status: "CREATING_USER" };
     case "SIGN_IN":
       return {
         status: "SIGNED_IN",
