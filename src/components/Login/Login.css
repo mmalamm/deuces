@@ -42,3 +42,11 @@
 .Login-Logo {
   height: 2.3rem;
 }
+
+.slider {
+  width: 20rem;
+}
+
+.rangeslider__handle {
+  outline: none;
+}

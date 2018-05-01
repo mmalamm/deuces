@@ -1,60 +1,48 @@
 import React, { Component } from "react";
-import "./NewUserForm.css";
-import Modal from "../Modal";
-import Pencil from "../AssetsSVG/Pencil";
-import { database, storage } from "../../fire";
 import { RotateLoading } from "respinner";
 
+import Pencil from "../AssetsSVG/Pencil";
+import { database } from "../../fire";
+import NewImageModal from "./NewImageModal";
+
+import "./NewUserForm.css";
 // user sees their info in a form
 // user can upload and set their profile pic
 // user is prompted to choose a username
 // input field with username that validates username syntax
 // smart submit button that validates username uniqueness
 
-const isValidUsername = str =>
-  str
-    .slice()
-    .replace(/\s/g, "")
-    .toLowerCase().length > 5;
+const isValidUsername = str => str.replace(/\s/g, "").toLowerCase().length > 5;
 
 class NewUserForm extends Component {
-  state = {
-    showModal: false,
-    username: this.props.user.displayName.replace(/\s/g, ""),
-    buttonDisabled: !isValidUsername(this.props.user.displayName),
-    buttonText: isValidUsername(this.props.user.displayName)
-      ? "submit"
-      : "6+ characters",
-    inputDisabled: false,
-    selectedPic: this.props.user.photoURL
-  };
-  closeModal = e => {
-    e.preventDefault();
-    this.setState({ showModal: false });
-  };
-  showModal = e => {
-    e.preventDefault();
-    this.setState({ showModal: true });
-  };
+  constructor(props) {
+    super(props);
+    const { displayName } = props.user;
+    const username = displayName.replace(/\s/g, "").slice(0, 20);
+    const buttonDisabled = !isValidUsername(displayName);
+    this.state = {
+      username,
+      buttonDisabled,
+      buttonText: !buttonDisabled ? "submit" : "6+ characters",
+      showModal: false,
+      inputDisabled: false
+    };
+  }
+  closeModal = e => this.setState({ showModal: false });
+  showModal = e => this.setState({ showModal: true });
   handleInputChange = e => {
     const username = e.target.value;
     if (username.match(/\s/g)) return;
     const usernameKey = username.toLowerCase();
     if (!usernameKey.match(/^[a-z0-9]{0,20}$/)) return;
     const len = usernameKey.length;
-    let { buttonText, buttonDisabled } = this.state;
-    if (len < 6) {
-      buttonText = "6+ characters";
-      buttonDisabled = true;
-    } else {
-      buttonText = "submit";
-      buttonDisabled = false;
-    }
-
+    const buttonDisabled = len < 6;
+    const buttonText = len < 6 ? "6+ characters" : "submit";
     this.setState({ username, buttonDisabled, buttonText });
   };
-  handleSubmit = e => {
-    if (this.state.buttonDisabled) return;
+  handleSubmit = async e => {
+    const { buttonDisabled, username } = this.state;
+    if (buttonDisabled) return;
     this.setState({
       buttonText: (
         <RotateLoading
@@ -68,57 +56,45 @@ class NewUserForm extends Component {
       buttonDisabled: true,
       inputDisabled: true
     });
-    const usernameKey = this.state.username.toLowerCase();
-    database
+    const usernameKey = username.toLowerCase();
+    const snapshot = await database
       .ref(`/users/${usernameKey}/public`)
-      .once("value")
-      .then(snapshot => {
-        if (snapshot.val()) {
-          this.setState(
-            {
-              buttonText: "name taken :(",
-              buttonDisabled: true,
-              inputDisabled: false
-            },
-            () => this.inputField.focus()
-          );
-        } else {
-          this.props.submitNewUserForm({ username: this.state.username });
-        }
-      });
-  };
-  handleKeyPress = e => {
-    if (e.key === "Enter") {
-      this.handleSubmit();
+      .once("value");
+    if (snapshot.val()) {
+      this.setState(
+        {
+          buttonText: "name taken :(",
+          buttonDisabled: true,
+          inputDisabled: false
+        },
+        () => this.inputField.focus()
+      );
+    } else {
+      this.props.submitNewUserForm({ username });
     }
   };
-  fileSelectedHandler = e => {
-    const file = e.target.files[0];
-    const userImgRef = storage.ref("/user-images").child(this.props.user.uid);
-    const uploadTask = userImgRef
-      .child(file.name)
-      .put(file, { contentType: file.type });
+  handleKeyPress = e => {
+    if (e.key === "Enter") this.handleSubmit();
   };
   render() {
     const { signOut, user } = this.props;
+    const { photoURL, displayName } = user;
+    const {
+      username,
+      inputDisabled,
+      buttonDisabled,
+      buttonText,
+      showModal
+    } = this.state;
     return (
       <div className="NewUserForm">
-        {this.state.showModal && (
-          <Modal>
-            <div className="NewUserForm-changePicModal">
-              <h1>Modal</h1>
-              <div className="NewUserForm-close" onClick={this.closeModal}>
-                ✖
-              </div>
-              <img src={this.state.selectedPic} alt="" />
-              <input type="file" onChange={this.fileSelectedHandler} />
-            </div>
-          </Modal>
+        {showModal && (
+          <NewImageModal selectedPic={photoURL} closeModal={this.closeModal} />
         )}
         <img
           className="NewUserForm-profilePic"
-          src={user.photoURL}
-          alt={user.displayName}
+          src={photoURL}
+          alt={displayName}
           onClick={this.showModal}
         />
         <div className="NewUserForm-changePicButton" onClick={this.showModal}>
@@ -127,14 +103,14 @@ class NewUserForm extends Component {
         <div className="NewUserForm-label">Choose a username:</div>
         <input
           className={`NewUserForm-textInput ${
-            this.state.inputDisabled ? "NewUserForm-textInputDisabled" : ""
+            inputDisabled ? "NewUserForm-textInputDisabled" : ""
           }`}
           type="text"
           autoFocus
           spellCheck="false"
-          value={this.state.username}
+          value={username}
           onChange={this.handleInputChange}
-          disabled={this.state.inputDisabled}
+          disabled={inputDisabled}
           onKeyPress={this.handleKeyPress}
           ref={input => {
             this.inputField = input;
@@ -142,11 +118,11 @@ class NewUserForm extends Component {
         />
         <div
           className={`NewUserForm-button ${
-            this.state.buttonDisabled ? "NewUserForm-buttonDisabled" : ""
+            buttonDisabled ? "NewUserForm-buttonDisabled" : ""
           }`}
           onClick={this.handleSubmit}
         >
-          {this.state.buttonText}
+          {buttonText}
         </div>
         <div className="NewUserForm-signoutText">
           or{" "}
