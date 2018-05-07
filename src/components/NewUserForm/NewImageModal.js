@@ -1,38 +1,55 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Modal from "../Modal";
 import ImgEditor from "./ImgEditor";
+import {storage, auth, database} from "../../fire";
 import Slider from "react-rangeslider";
+const _URL = window.URL || window.webkitURL;
 class NewImageModal extends Component {
   state = {
     picScale: 1,
     selectedPic: this.props.selectedPic,
-    zoomLevel: 0
+    zoomLevel: 0,
+    selectedFile: null
   };
-  componentDidMount() {
-    window.addEventListener("wheel", this.handleScroll);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("wheel", this.handleScroll);
-  }
   handleScroll = e => {
     this.setState(oldState => {
       let zoomLevel = Math.round(oldState.zoomLevel - e.deltaY);
       // if (zoomLevel > 100 || zoomLevel < 0) return;
-      zoomLevel = zoomLevel > 100 ? 100 : zoomLevel < 0 ? 0 : zoomLevel;
+      zoomLevel = zoomLevel > 100
+        ? 100
+        : zoomLevel < 0
+          ? 0
+          : zoomLevel;
       const picScale = 1 + zoomLevel / 100 * 3;
-      return { zoomLevel, picScale };
+      return {zoomLevel, picScale};
     });
   };
   handleSliderChange = e => {
-    this.setState({ zoomLevel: e, picScale: 1 + e / 100 * 3 });
+    this.setState({
+      zoomLevel: e,
+      picScale: 1 + e / 100 * 3
+    });
   };
   fileSelectedHandler = e => {
     const file = e.target.files[0];
     console.log(file);
-    this.setState({ selectedPic: file.blob() });
-    // const uploadTask = userImgRef
-    //   .child(file.name)
-    //   .put(file, { contentType: file.type });
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e => {
+      this.setState({
+        selectedFile: file,
+        selectedPic: e.target.result
+      }, () => console.log("done"));
+    };
+  };
+  uploadHandler = async() => {
+    console.log(this.state.selectedFile);
+    console.log(this.state.selectedPic);
+    const snapshot = await storage
+      .ref(`users/${auth.currentUser.uid}`)
+      .child(auth.currentUser.uid)
+      .put(this.state.selectedFile)
+
   };
   render() {
     return (
@@ -42,7 +59,10 @@ class NewImageModal extends Component {
           <div className="NewUserForm-close" onClick={this.props.closeModal}>
             ✖
           </div>
-          <ImgEditor
+          <img src={this.state.selectedPic} alt=""/>
+          <input type="file" onChange={this.fileSelectedHandler}/>
+          <button onClick={this.uploadHandler}>Upload!</button>
+          {/* <ImgEditor
             scale={this.state.picScale}
             image={this.state.selectedPic}
             alt=""
@@ -56,7 +76,7 @@ class NewImageModal extends Component {
               orientation="horizontal"
               tooltip={false}
             />
-          </div>
+          </div> */}
         </div>
       </Modal>
     );
