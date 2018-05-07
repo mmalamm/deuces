@@ -87,7 +87,7 @@ app.post('/change_photo_url', async(req, res) => {
     .child('photoURL')
     .set(downloadURL)
     .then(() => {
-      res.json({status: 200, desc: 'A okay!'})
+      res.json({status: 200, desc: 'A okay!', downloadURL})
     })
     .catch(e => console.error(e));
 })

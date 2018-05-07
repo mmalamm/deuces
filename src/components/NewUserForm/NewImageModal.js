@@ -56,8 +56,7 @@ class NewImageModal extends Component {
 
     const promises = [];
     const username = this.props.username;
-    const changePhotoURLendpoint = '      https://us-central1-deuces-bovinecorvus.cloudfunctions.net/api/change_phot' +
-        'o_url';
+    const changePhotoURLendpoint = 'https://us-central1-deuces-bovinecorvus.cloudfunctions.net/api/change_photo_url';
     const idToken = await auth
       .currentUser
       .getIdToken(true);
@@ -72,7 +71,12 @@ class NewImageModal extends Component {
     }
     Promise
       .all(promises)
-      .then(() => console.log('dooone~!'))
+      .then((e) => {
+        console.log('dooone~!', e);
+        this
+          .props
+          .updatePhotoURL(e[0].data.downloadURL)
+      })
   };
   render() {
     return (

@@ -88,7 +88,8 @@ class NewUserForm extends Component {
         {showModal && (<NewImageModal
           selectedPic={photoURL}
           username={username}
-          closeModal={this.closeModal}/>)}
+          closeModal={this.closeModal}
+          updatePhotoURL={this.props.updatePhotoURL}/>)}
         <img
           className="NewUserForm-profilePic"
           src={photoURL}

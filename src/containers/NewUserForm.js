@@ -1,9 +1,9 @@
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import NewUserForm from "../components/NewUserForm";
-import { submitNewUserForm, signOut } from "../actions/auth";
+import {submitNewUserForm, signOut, updatePhotoURL} from "../actions/auth";
 
-const mapStateToProps = ({ auth }) => {
-  return { user: auth };
+const mapStateToProps = ({auth}) => {
+  return {user: auth};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -13,6 +13,9 @@ const mapDispatchToProps = dispatch => {
     },
     submitNewUserForm(formData) {
       dispatch(submitNewUserForm(formData));
+    },
+    updatePhotoURL(url) {
+      dispatch(updatePhotoURL(url))
     }
   };
 };
