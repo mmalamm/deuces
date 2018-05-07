@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Modal from "../Modal";
 import ImgEditor from "./ImgEditor";
 import {storage, auth, database} from "../../fire";
+import axios from 'axios'
 import Slider from "react-rangeslider";
 const _URL = window.URL || window.webkitURL;
 class NewImageModal extends Component {
@@ -49,7 +50,29 @@ class NewImageModal extends Component {
       .ref(`users/${auth.currentUser.uid}`)
       .child(auth.currentUser.uid)
       .put(this.state.selectedFile)
+    console.log(snapshot.downloadURL);
 
+    const _userRef = database.ref(`_users/${auth.currentUser.uid}`);
+
+    const promises = [];
+    const username = this.props.username;
+    const changePhotoURLendpoint = '      https://us-central1-deuces-bovinecorvus.cloudfunctions.net/api/change_phot' +
+        'o_url';
+    const idToken = await auth
+      .currentUser
+      .getIdToken(true);
+    console.log(snapshot);
+    const downloadURL = snapshot.downloadURL;
+    if (username) {
+      const p2 = axios.post(changePhotoURLendpoint, {username, idToken, downloadURL})
+      promises.push(p2);
+    } else {
+      const p2 = axios.post(changePhotoURLendpoint, {idToken, downloadURL})
+      promises.push(p2);
+    }
+    Promise
+      .all(promises)
+      .then(() => console.log('dooone~!'))
   };
   render() {
     return (

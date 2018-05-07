@@ -37,28 +37,7 @@ export const changeProfilePic = functions
   .storage
   .object()
   .onFinalize(async e => {
-    const uid = e
-      .name
-      .slice(6);
-    const publicURL = `${e.selfLink}?alt=media&token=${e.metadata.firebaseStorageDownloadTokens}`;
-    console.log('publicURL:::', publicURL);
-    const _userRef = db.ref(`/_users/${uid}`);
-    const promises = [
-      _userRef
-        .child('photoURL')
-        .set(publicURL)
-    ];
-    const usernameSnapshot = await _userRef
-      .child("username")
-      .once("value");
-    const username = usernameSnapshot.val();
-    if (username) {
-      const usernameKey = username
-        .replace(/\s/g, "")
-        .toLowerCase();
-      promises.push(db.ref(`users/${usernameKey}/public`).child('photoURL').set(publicURL))
-    }
-    return Promise.all(promises);
+    console.log(e);
   });
 
 import app from "./api";
