@@ -1,0 +1,103 @@
+.NewUserForm {
+  align-items: center;
+  width: 80%;
+  margin: 3rem auto;
+  background-color: var(--slate);
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  color: black;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.NewUserForm-blurred {
+  filter: blur(5px);
+}
+
+.NewUserForm-changePicButton {
+  background-color: black;
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  margin-top: -1.75rem;
+  border-radius: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.NewUserForm-profilePic {
+  position: relative;
+  margin: 0 auto;
+  margin-top: -10rem;
+  height: 16rem;
+  width: 16rem;
+  border-radius: 8rem;
+  border: 0.5rem solid black;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.NewUserForm-label {
+  text-align: center;
+  margin: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+  width: 80%;
+}
+
+.NewUserForm-textInput {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: var(--bitter);
+  border: 0.25rem solid black;
+  box-sizing: border-box;
+  width: 80%;
+  height: 2.5rem;
+  outline: none;
+  background-color: transparent;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
+
+.NewUserForm-textInputDisabled {
+  border: 0.25rem solid rgb(0, 0, 0, 0.65);
+  color: rgb(0, 0, 0, 0.65);
+}
+
+.NewUserForm-button {
+  display: flex;
+  height: 2.5rem;
+  width: 80%;
+  background-color: black;
+  justify-content: center;
+  line-height: 2.5rem;
+  user-select: none;
+  cursor: pointer;
+  margin: 1.5rem;
+  color: var(--slate);
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  transition: background-color 0.2s linear;
+}
+
+.NewUserForm-buttonDisabled {
+  background-color: rgb(0, 0, 0, 0.65);
+  cursor: default;
+}
+
+.NewUserForm-spinner {
+  align-self: center;
+}
+
+.NewUserForm-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.NewUserForm-signoutText {
+  font-weight: 900;
+}

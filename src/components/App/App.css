@@ -4,3 +4,12 @@
   display: flex;
   flex-direction: column;
 }
+.App-logo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 1rem auto;
+  z-index: -1;
+  fill: #020202;
+}

@@ -5,7 +5,7 @@ const config = {
   authDomain: "deuces-bovinecorvus.firebaseapp.com",
   databaseURL: "https://deuces-bovinecorvus.firebaseio.com",
   projectId: "deuces-bovinecorvus",
-  storageBucket: "",
+  storageBucket: "deuces-bovinecorvus.appspot.com",
   messagingSenderId: "769484438430"
 };
 
@@ -19,5 +19,6 @@ export default firebase;
 
 export const database = firebase.database();
 export const auth = firebase.auth();
+export const storage = firebase.storage();
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const githubAuthProvider = new firebase.auth.GithubAuthProvider();

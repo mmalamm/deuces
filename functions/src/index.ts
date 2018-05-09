@@ -1,38 +1,47 @@
 import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
+import admin from "./admin";
+const db = admin.database();
 
-admin.initializeApp();
-
-export const newUser = functions.auth
+export const initUser = functions
+  .auth
   .user()
-  .onCreate(({ displayName, photoURL, uid, email }) => {
+  .onCreate(({displayName, photoURL, uid, email}) => {
     console.log("new user logging in:", displayName, email);
-    return Promise.all([
-      admin
-        .database()
-        .ref(`/users/${uid}`)
-        .set({ displayName, photoURL, uid, points: 500 })
-    ]).catch(e => console.error(e));
+    return Promise
+      .all([
+      db
+        .ref(`/_users/${uid}`)
+        .set({displayName, photoURL, uid, email, points: 250})
+    ])
+      .catch(e => console.error(e));
   });
 
-export const deleteUser = functions.auth.user().onDelete(e => {
-  console.log("deleting user:", e.displayName, e.email);
-  return Promise.all([
-    admin
-      .database()
-      .ref(`/users/${e.uid}`)
-      .set(null)
-  ]).catch(err => console.error(err));
-});
+export const deleteUser = functions
+  .auth
+  .user()
+  .onDelete(async e => {
+    console.log("deleting user:", e.displayName, e.email);
+    const _userRef = db.ref(`/_users/${e.uid}`);
+    const usernameSnapshot = await _userRef
+      .child("username")
+      .once("value");
+    const username = usernameSnapshot.val();
+    console.log(username);
+    return Promise.all([
+      _userRef.set(null),
+      db.ref(`users/${username.replace(/\s/g, "").toLowerCase()}`).set(null)
+    ]);
+  });
 
-export const createGame = functions.https.onRequest((req, res) => {
-  console.log(req);
-  admin
-    .database()
-    .ref("games")
-    .push("ayyyy")
-    .then(e => {
-      console.log(e);
-      res.status(200).json({ hello: "world" });
-    });
-});
+export const changeProfilePic = functions
+  .storage
+  .object()
+  .onFinalize(async e => {
+    console.log(e);
+  });
+
+import app from "./api";
+
+export const api = functions
+  .https
+  .onRequest(app);

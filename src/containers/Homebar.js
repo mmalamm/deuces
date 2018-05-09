@@ -1,25 +1,15 @@
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import Homebar from "../components/Homebar";
 import { signOut } from "../actions/auth";
 import { createGame, showNewGameForm } from "../actions/games";
 
 const mapStateToProps = ({ auth }) => {
-  const { displayName, photoURL, uid } = auth;
-  return { displayName, photoURL, uid };
+  const { photoURL, username, points } = auth;
+  return { photoURL, username, points };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    signOut() {
-      dispatch(signOut());
-    },
-    createGame() {
-      dispatch(createGame());
-    },
-    showNewGameForm() {
-      dispatch(showNewGameForm());
-    }
-  };
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ signOut, createGame, showNewGameForm }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homebar);
