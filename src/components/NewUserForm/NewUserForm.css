@@ -11,6 +11,10 @@
   border-radius: 1rem;
 }
 
+.NewUserForm-blurred {
+  filter: blur(5px);
+}
+
 .NewUserForm-changePicButton {
   background-color: black;
   display: flex;
@@ -22,35 +26,6 @@
   align-items: center;
   cursor: pointer;
   z-index: 0;
-}
-
-.NewUserForm-changePicModal {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-  background-color: var(--slate);
-  top: 15%;
-  left: calc(50vw - 15rem);
-  /* right: calc(100vw + 15rem); */
-  width: 30rem;
-  min-height: 4rem;
-}
-
-.NewUserForm-close {
-  position: absolute;
-  top: -1rem;
-  right: -1rem;
-  text-align: center;
-  line-height: 2rem;
-  width: 2rem;
-  background-color: white;
-  color: blue;
-  cursor: pointer;
-  border-radius: 1rem;
-  user-select: none;
 }
 
 .NewUserForm-profilePic {
@@ -125,9 +100,4 @@
 
 .NewUserForm-signoutText {
   font-weight: 900;
-}
-
-.NewUserForm-chosenImg {
-  width: 25em;
-  height: 25em;
 }

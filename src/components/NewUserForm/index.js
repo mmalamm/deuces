@@ -85,7 +85,7 @@ class NewUserForm extends Component {
       showModal
     } = this.state;
     return (
-      <div className="NewUserForm">
+      <div className={`NewUserForm ${showModal && "NewUserForm-blurred"}`}>
         {showModal && (
           <NewImageModal
             selectedPic={photoURL}
@@ -106,7 +106,7 @@ class NewUserForm extends Component {
         <div className="NewUserForm-label">Choose a username:</div>
         <input
           className={`NewUserForm-textInput ${
-            inputDisabled ? "NewUserForm-textInputDisabled" : ""
+            inputDisabled && "NewUserForm-textInputDisabled"
           }`}
           type="text"
           autoFocus
