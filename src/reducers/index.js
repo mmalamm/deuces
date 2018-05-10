@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import authReducer from "./auth";
-import gamesReducer from "./games";
+import modalsReducer from "./modals";
 
 const reducer = combineReducers({
   auth: authReducer,
-  games: gamesReducer
+  modals: modalsReducer
 });
 
 export default reducer;

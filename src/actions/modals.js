@@ -16,3 +16,13 @@ export const hideNewGameForm = () => {
     dispatch({ type: "HIDE_NEW_GAME_FORM" });
   };
 };
+export const showChangePicForm = () => {
+  return dispatch => {
+    dispatch({ type: "SHOW_CHANGE_PIC_FORM" });
+  };
+};
+export const hideChangePicForm = () => {
+  return dispatch => {
+    dispatch({ type: "HIDE_CHANGE_PIC_FORM" });
+  };
+};

@@ -1,0 +1,67 @@
+.ChangePicForm-changePicModal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  background-color: var(--slate);
+  top: 7.5vh;
+  width: 90vw;
+  max-width: 420px;
+  min-height: 4rem;
+}
+.ChangePicForm-close {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  text-align: center;
+  line-height: 2rem;
+  width: 2rem;
+  background-color: black;
+  color: var(--slate);
+  cursor: pointer;
+  border-radius: 1.2rem;
+  user-select: none;
+  border: 0.2rem solid var(--slate);
+  box-sizing: content-box;
+}
+.ChangePicForm-modalHeading {
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+}
+
+.ChangePicForm-chosenImg {
+  max-width: 400px;
+  width: 85vw;
+}
+.ChangePicForm-dropzone {
+  background-color: var(--slate);
+  color: black;
+  width: 85vw;
+  max-width: 400px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+  padding: 2rem 0;
+  margin: 1rem 0;
+  border: 0.5rem dashed black;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.ChangePicForm-loading {
+  width: 90vw;
+  max-width: 420px;
+}
+.ChangePicForm-picture {
+  width: 90vw;
+  max-width: 420px;
+  height: 90vw;
+  max-height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,6 +1,6 @@
 import initialState from "../initial-state.js";
 
-export default function gamesReducer(state = initialState.games, action) {
+export default function modalsReducer(state = initialState.modals, action) {
   switch (action.type) {
     case "CREATE_GAME":
       console.log("create game reducer hit");
@@ -14,6 +14,16 @@ export default function gamesReducer(state = initialState.games, action) {
       return {
         ...state,
         showNewGameForm: false
+      };
+    case "SHOW_CHANGE_PIC_FORM":
+      return {
+        ...state,
+        showChangePicForm: true
+      };
+    case "HIDE_CHANGE_PIC_FORM":
+      return {
+        ...state,
+        showChangePicForm: false
       };
     default:
       return state;
