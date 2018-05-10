@@ -7,7 +7,12 @@ class Homebar extends Component {
     return (
       <div className="Homebar">
         <div className="Homebar-userinfo">
-          <img className="Homebar-userinfo-img" src={photoURL} alt="" />
+          <img
+            className="Homebar-userinfo-img"
+            src={photoURL}
+            alt=""
+            onClick={this.props.showChangePicForm}
+          />
           <p className="Homebar-userinfo-txt">{username}</p>
           <p className="Homebar-userinfo-txt">{points}</p>
         </div>

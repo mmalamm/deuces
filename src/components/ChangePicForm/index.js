@@ -17,17 +17,14 @@ class ChangePicForm extends Component {
   fileSelectedHandler = e => {
     this.setState({ selectedPic: "" });
     const file = e[0];
-    console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = e => {
-      console.log(e);
       var i = new Image();
 
       i.onload = () => {
         const { width, height } = i;
         if (height / width !== 1) {
-          console.log(height, width);
           alert("Picture must be square.");
         } else {
           this.setState(
@@ -44,20 +41,15 @@ class ChangePicForm extends Component {
     };
   };
   uploadHandler = async () => {
-    // this.setState({selectedPic: ''});
-    console.log(this.state.selectedFile);
-    console.log(this.state.selectedPic);
     const snapshot = await storage
       .ref(`users/${auth.currentUser.uid}`)
       .child(auth.currentUser.uid)
       .put(this.state.selectedFile);
-    console.log(snapshot.downloadURL);
 
-    const username = this.props.username;
+    const username = this.props.username || "";
     const changePhotoURLendpoint =
       "https://us-central1-deuces-bovinecorvus.cloudfunctions.net/api/change_photo_url";
     const idToken = await auth.currentUser.getIdToken(true);
-    console.log(snapshot);
     const downloadURL = snapshot.downloadURL;
     axios
       .post(changePhotoURLendpoint, {
@@ -66,7 +58,6 @@ class ChangePicForm extends Component {
         downloadURL
       })
       .then(e => {
-        console.log("dooone~!", e);
         this.setState({ selectedPic: e.data.downloadURL });
         this.props.updatePhotoURL(e.data.downloadURL);
       });

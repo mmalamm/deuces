@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Homebar from "../components/Homebar";
 import { signOut } from "../actions/auth";
-import { createGame, showNewGameForm } from "../actions/modals";
+import { showNewGameForm, showChangePicForm } from "../actions/modal";
 
 const mapStateToProps = ({ auth }) => {
   const { photoURL, username, points } = auth;
@@ -10,6 +10,6 @@ const mapStateToProps = ({ auth }) => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ signOut, createGame, showNewGameForm }, dispatch);
+  bindActionCreators({ signOut, showNewGameForm, showChangePicForm }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homebar);

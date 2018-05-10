@@ -6,11 +6,7 @@ const initialState = {
     uid: null,
     username: null
   },
-
-  modals: {
-    showNewGameForm: false,
-    showChangePicForm: false
-  }
+  modal: null
 };
 
 export default initialState;

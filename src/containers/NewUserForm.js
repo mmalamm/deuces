@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import NewUserForm from "../components/NewUserForm";
-import { submitNewUserForm, signOut, updatePhotoURL } from "../actions/auth";
+import { submitNewUserForm, signOut } from "../actions/auth";
+import { showChangePicForm } from "../actions/modal";
 
-const mapStateToProps = ({ auth }) => {
-  return { user: auth };
+const mapStateToProps = ({ auth, modal }) => {
+  return { user: auth, modal };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -14,8 +15,8 @@ const mapDispatchToProps = dispatch => {
     submitNewUserForm(formData) {
       dispatch(submitNewUserForm(formData));
     },
-    updatePhotoURL(url) {
-      dispatch(updatePhotoURL(url));
+    showChangePicForm() {
+      dispatch(showChangePicForm());
     }
   };
 };

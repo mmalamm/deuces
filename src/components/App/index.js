@@ -7,13 +7,25 @@ import "./App.css";
 import NewGameForm from "../../containers/NewGameForm";
 import NewUserForm from "../../containers/NewUserForm";
 import Logo from "../AssetsSVG/Logo";
+import ChangePicForm from "../../containers/ChangePicForm";
+
+const renderModal = modalName => {
+  switch (modalName) {
+    case "NEW_GAME_FORM":
+      return <NewGameForm />;
+    case "CHANGE_PIC_FORM":
+      return <ChangePicForm />;
+    default:
+      return null;
+  }
+};
 
 class App extends Component {
   renderHomescreen = () => {
-    const { auth, modals } = this.props;
+    const { auth, modal } = this.props;
     const appDash = (
       <Fragment>
-        {modals.showNewGameForm && <NewGameForm />}
+        {modal && renderModal(modal)}
         <div className="App-homebar">
           <Homebar />
         </div>

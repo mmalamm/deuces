@@ -3,12 +3,9 @@ import { RotateLoading } from "respinner";
 
 import Pencil from "../AssetsSVG/Pencil";
 import { database } from "../../fire";
-import NewImageModal from "./NewImageModal";
+import ChangePicForm from "../../containers/ChangePicForm";
 
 import "./NewUserForm.css";
-// user sees their info in a form user can upload and set their profile pic user
-// is prompted to choose a username input field with username that validates
-// username syntax smart submit button that validates username uniqueness
 
 const isValidUsername = str => str.replace(/\s/g, "").toLowerCase().length > 3;
 
@@ -75,7 +72,7 @@ class NewUserForm extends Component {
     if (e.key === "Enter") this.handleSubmit();
   };
   render() {
-    const { signOut, user, updatePhotoURL } = this.props;
+    const { signOut, user } = this.props;
     const { photoURL, displayName } = user;
     const {
       username,
@@ -84,30 +81,26 @@ class NewUserForm extends Component {
       buttonText,
       showModal
     } = this.state;
+    console.log(this.props);
     return (
       <div className={`NewUserForm ${showModal && "NewUserForm-blurred"}`}>
-        {showModal && (
-          <NewImageModal
-            selectedPic={photoURL}
-            username={username}
-            closeModal={this.closeModal}
-            updatePhotoURL={updatePhotoURL}
-          />
-        )}
+        {this.props.modal === "CHANGE_PIC_FORM" && <ChangePicForm />}
         <img
           className="NewUserForm-profilePic"
           src={photoURL}
           alt={displayName}
-          onClick={this.showModal}
+          onClick={this.props.showChangePicForm}
         />
-        <div className="NewUserForm-changePicButton" onClick={this.showModal}>
+        <div
+          className="NewUserForm-changePicButton"
+          onClick={this.props.showChangePicForm}
+        >
           <Pencil color={"#708090"} />
         </div>
         <div className="NewUserForm-label">Choose a username:</div>
         <input
-          className={`NewUserForm-textInput ${
-            inputDisabled && "NewUserForm-textInputDisabled"
-          }`}
+          className={`NewUserForm-textInput ${inputDisabled &&
+            "NewUserForm-textInputDisabled"}`}
           type="text"
           autoFocus
           spellCheck="false"

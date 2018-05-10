@@ -1,11 +1,14 @@
 import { connect } from "react-redux";
 import NewGameForm from "../components/NewGameForm";
-import { hideNewGameForm } from "../actions/modals";
+import { hideModal, showChangePicForm } from "../actions/modal";
 
 const mapDispatchToProps = dispatch => {
   return {
-    hideNewGameForm() {
-      dispatch(hideNewGameForm());
+    hideModal() {
+      dispatch(hideModal());
+    },
+    showChangePicForm() {
+      dispatch(showChangePicForm());
     }
   };
 };

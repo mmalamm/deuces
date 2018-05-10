@@ -17,6 +17,7 @@
   border-radius: 2rem;
   border: 5px rgb(30, 0, 139) solid;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .Homebar-userinfo-txt {

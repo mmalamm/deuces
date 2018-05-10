@@ -4,12 +4,12 @@ import "./NewGameForm.css";
 
 class NewGameForm extends Component {
   render() {
-    const { hideNewGameForm } = this.props;
+    const { hideModal } = this.props;
     return (
       <Modal>
         <div className="NewGameForm">
           NewGameForm
-          <div className="NewGameForm-close" onClick={hideNewGameForm}>
+          <div className="NewGameForm-close" onClick={hideModal}>
             ✖
           </div>
         </div>
