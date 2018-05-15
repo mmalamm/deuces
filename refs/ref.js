@@ -64,4 +64,28 @@ class NewImageModal extends Component {
   }
 }
 
+const _games = {
+  $gameId: {
+    players: {
+      $playerId1: {
+        username: string,
+        score: number
+      }
+      //...
+    },
+    matches: {
+      $matchId: {
+        createdAt: timestamp,
+        players: {
+          0: {
+            uid: playerId,
+            username: string
+          }
+          //...
+        }
+      }
+    }
+  }
+};
+
 export default NewImageModal;

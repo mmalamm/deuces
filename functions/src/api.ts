@@ -92,4 +92,14 @@ app.post('/change_photo_url', async(req, res) => {
     .catch(e => console.error(e));
 })
 
+app.post('/create_game', async (req, res) => {
+  const { idToken, username } = req.body;
+  // user creates game object with the following schema:
+  // game : {
+  //   players: {
+  
+  //    }
+  // }
+})
+
 export default app;
