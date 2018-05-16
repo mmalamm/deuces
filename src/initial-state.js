@@ -6,7 +6,8 @@ const initialState = {
     uid: null,
     username: null
   },
-  modal: null
+  modal: null,
+  games: {}
 };
 
 export default initialState;

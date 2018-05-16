@@ -36,7 +36,7 @@ export const deleteUser = functions
 export const changeProfilePic = functions
   .storage
   .object()
-  .onFinalize(async e => {
+  .onFinalize(e => {
     console.log(e);
   });
 

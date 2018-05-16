@@ -1,16 +1,21 @@
 import { connect } from "react-redux";
 import NewGameForm from "../components/NewGameForm";
-import { hideModal, showChangePicForm } from "../actions/modal";
+import { hideModal } from "../actions/modal";
+import { submitNewGameForm } from "../actions/games";
+
+const mapStateToProps = ({ auth, modal }) => {
+  return { user: auth, modal };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     hideModal() {
       dispatch(hideModal());
     },
-    showChangePicForm() {
-      dispatch(showChangePicForm());
+    submitNewGameForm(data) {
+      dispatch(submitNewGameForm(data));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(NewGameForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewGameForm);

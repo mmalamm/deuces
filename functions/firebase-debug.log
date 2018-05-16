@@ -1,0 +1,34 @@
+[debug] [2018-05-16T07:07:39.733Z] ----------------------------------------------------------------------
+[debug] [2018-05-16T07:07:39.735Z] Command:       /usr/local/Cellar/node/9.10.1/bin/node /Users/chillin/.config/yarn/global/node_modules/.bin/firebase serve --only functions
+[debug] [2018-05-16T07:07:39.735Z] CLI Version:   3.17.7
+[debug] [2018-05-16T07:07:39.735Z] Platform:      darwin
+[debug] [2018-05-16T07:07:39.735Z] Node Version:  v9.10.1
+[debug] [2018-05-16T07:07:39.736Z] Time:          Wed May 16 2018 03:07:39 GMT-0400 (EDT)
+[debug] [2018-05-16T07:07:39.736Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-05-16T07:07:39.749Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-05-16T07:07:39.749Z] > authorizing via signed-in user
+[debug] [2018-05-16T07:07:39.751Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/deuces-bovinecorvus  
+  
+ Wed May 16 2018 03:07:39 GMT-0400 (EDT)
+[debug] [2018-05-16T07:07:40.076Z] <<< HTTP RESPONSE 200
+[debug] [2018-05-16T07:07:40.076Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/deuces-bovinecorvus/tokens  
+  
+ Wed May 16 2018 03:07:40 GMT-0400 (EDT)
+[debug] [2018-05-16T07:07:40.513Z] <<< HTTP RESPONSE 200
+[debug] [2018-05-16T07:07:40.514Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/deuces-bovinecorvus  
+  
+ Wed May 16 2018 03:07:40 GMT-0400 (EDT)
+[debug] [2018-05-16T07:07:40.757Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/chillin/Desktop/deuces'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-05-16T07:07:41.278Z] Fetching environment
+[debug] [2018-05-16T07:07:41.280Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/769484438430:getServerAppConfig  
+  
+ Wed May 16 2018 03:07:41 GMT-0400 (EDT)
+[debug] [2018-05-16T07:07:41.743Z] <<< HTTP RESPONSE 200
+[debug] [2018-05-16T07:07:41.743Z] Starting @google-cloud/functions-emulator
+[debug] [2018-05-16T07:07:43.311Z] Parsing function triggers
+[info] ✔  functions: api: http://localhost:5000/deuces-bovinecorvus/us-central1/api

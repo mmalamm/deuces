@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Homebar from "../../containers/Homebar";
-import Gamelist from "../Gamelist";
+import Gamelist from "../../containers/Gamelist";
 import Loading from "../Loading";
 import Login from "../../containers/Login";
 import "./App.css";

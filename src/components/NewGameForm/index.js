@@ -7,7 +7,13 @@ class NewGameForm extends Component {
     gameName: ""
   };
   handleChange = e => {
-    this.setState(() => ({ gameName: e.target.value }));
+    const gameName = e.target.value;
+    this.setState(() => ({ gameName }));
+  };
+  handleSubmit = e => {
+    const { username } = this.props.user;
+    const { gameName } = this.state;
+    this.props.submitNewGameForm({ username, gameName });
   };
   render() {
     const { hideModal } = this.props;
@@ -23,6 +29,7 @@ class NewGameForm extends Component {
           <div>Invite only?</div>
           <div>Invite:</div>
           <input type="text" name="" id="" />
+          <button onClick={this.handleSubmit}>Create Game</button>
         </div>
       </Modal>
     );

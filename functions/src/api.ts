@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 import admin from "./admin";
-import {user} from "firebase-functions/lib/providers/auth";
 
 const app = express();
 
@@ -93,13 +92,34 @@ app.post('/change_photo_url', async(req, res) => {
 })
 
 app.post('/create_game', async (req, res) => {
-  const { idToken, username } = req.body;
-  // user creates game object with the following schema:
-  // game : {
-  //   players: {
-  
-  //    }
-  // }
-})
+  const { idToken, username, gameName } = req.body;
+  const usernameKey = username.replace(/\s/g, '').toLowerCase();
+  const token = await admin.auth().verifyIdToken(idToken);
+  const uid = token.uid;
+  const _gamesRef = admin.database().ref(`_games`);
+  const userRef = admin
+    .database()
+    .ref(`/users/${usernameKey}`);
+  const userGamesRef = userRef.child(uid).child('games');
+  const game = {
+    gameName,
+    players: {
+      [uid]: {
+        username
+      }
+    },
+    gameStarted: false,
+    matchInProgress: false,
+    gameKey: ''
+  };
+  const gameRef = await _gamesRef.push(game);
+  const gameKey = gameRef.path.pieces_[1];
+  const p1 = gameRef.child(gameKey).child('gameKey').set(gameKey);
+  game.gameKey = gameKey;
+  userGamesRef.child(gameKey).set(game).then(e => {
+    console.log(e);
+    res.json(game);
+  }).catch(e => { console.error(e);res.status(500).json({error:'error happened'})})
+});
 
 export default app;
