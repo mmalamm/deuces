@@ -26,9 +26,6 @@ class NewGameForm extends Component {
           <h2>Create New Game</h2>
           <div>Game Name:</div>
           <input onChange={this.handleChange} />
-          <div>Invite only?</div>
-          <div>Invite:</div>
-          <input type="text" name="" id="" />
           <button onClick={this.handleSubmit}>Create Game</button>
         </div>
       </Modal>

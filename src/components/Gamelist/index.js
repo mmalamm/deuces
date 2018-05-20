@@ -14,7 +14,7 @@ class Gamelist extends Component {
     return (
       <div className="Gamelist">
         <h1>bovine corvus</h1>
-        {games.map(g => <div key={g.gameKey}>{g.gameName}</div>)}
+        {games.map(g => <div onClick={e => console.log(g)} key={g.gameKey}>{g.gameName}</div>)}
       </div>
     );
   }
