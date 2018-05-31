@@ -2,7 +2,6 @@ import * as admin from "firebase-admin";
 
 admin.initializeApp();
 
-// export const dbRef = admin.database().ref;
 export const db = admin.database();
 export const keyify = (uname: string): string => uname.toLowerCase();
 
@@ -16,6 +15,17 @@ export const getUidFromToken = (idToken: string): Promise<string> =>
         resolve(uid);
       })
       .catch(err => reject(err));
+  });
+
+export const getUidFromUsername = (username: string): Promise<string> =>
+  new Promise((resolve, reject) => {
+    db
+      .ref(`users/${username}/uid`)
+      .once("value", snapshot => {
+        const uid = snapshot.val();
+        resolve(uid);
+      })
+      .catch(e => console.error(e));
   });
 
 export const getUsernameFromUid = (uid: string): Promise<string> =>
@@ -61,7 +71,7 @@ const get_userFromUid = (uid: string): Promise<_user> =>
       .ref("_users")
       .child(uid)
       .once("value", snapshot => {
-        const _userObj = snapshot.val();
+        const _userObj: _user = snapshot.val();
         resolve(_userObj);
       })
       .catch(e => console.error(e));
@@ -97,5 +107,3 @@ export const setUsernameAndCreateUser = async (
       .catch(e => console.error(e));
   });
 };
-
-export default admin;

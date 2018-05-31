@@ -1,12 +1,35 @@
-import { db, getUsernameFromUid, getUserFromUsername, keyify } from "../admin";
-
-// const _gamesRef = dbRef("_games");
-// const openGamesRef = dbRef("openGames");
+import {
+  db,
+  getUsernameFromUid,
+  getUserFromUsername,
+  keyify,
+  getUidFromUsername
+} from "../admin";
 
 const _gamesRef = db.ref("_games");
 const openGamesRef = db.ref("openGames");
 
-const getGameFromGameKey = (gameKey: string) => {
+export const checkInvite = (game: _game, playerUid: string): boolean =>
+  !!game.invites.map(i => i.uid).find(uid => uid === playerUid);
+
+export const makeInvitesFromUsernames = async (
+  invitedUsernames: string[]
+): Promise<_invite[]> =>
+  new Promise<_invite[]>(async (resolve, reject) => {
+    const promises = invitedUsernames.map(u => getUidFromUsername(u));
+    const uids = await Promise.all(promises);
+    const invites: _invite[] = uids.map(
+      (uid, i) =>
+        ({
+          uid,
+          username: invitedUsernames[i],
+          status: "PENDING"
+        } as _invite)
+    );
+    resolve(invites);
+  });
+
+export const get_gameFromGameKey = (gameKey: string): Promise<_game> => {
   return new Promise((resolve, reject) => {
     _gamesRef
       .child(gameKey)
@@ -59,8 +82,14 @@ const getNextPositionFromGamekey = gameKey => {
 
 interface Player {
   photoURL: string;
-  position: number;
+  position: 0 | 1 | 2 | 3;
   username: string;
+}
+
+interface _invite {
+  username: string;
+  uid: string;
+  status: "ACCEPTED" | "PENDING" | "REJECTED";
 }
 
 export interface _game {
@@ -68,7 +97,7 @@ export interface _game {
   ownerUid: string;
   gameStatus: "NEW_GAME" | "MATCH_STARTED" | "MATCH_ENDED";
   inviteOnly: boolean;
-  invites?;
+  invites?: _invite[];
   gameKey?: string;
 }
 
@@ -108,7 +137,7 @@ const createGameDigestFromGame = game => {
 
 export const addGameToOpenGames = async (gameKey: string) =>
   new Promise(async (resolve, reject) => {
-    const game = await getGameFromGameKey(gameKey);
+    const game = await get_gameFromGameKey(gameKey);
     const gameDigest = createGameDigestFromGame(game);
     await openGamesRef.child(gameKey).set(gameDigest);
     resolve({ [gameKey]: gameDigest });
@@ -128,15 +157,14 @@ export const addPlayerToGame = async (playerUid, gameKey) => {
     photoURL,
     uid: playerUid
   };
+  // add player to _game.players
   await playersRef.child(playerUid).set(player);
+  // add gameDigest to users.{username}.{uid}.games.{gameKey}
   const gameSnapshot = await _gameRef.once("value");
   const game = gameSnapshot.val();
+
   const p2 = db
-    .ref("users")
-    .child(keyify(username))
-    .child(playerUid)
-    .child("games")
-    .child(gameKey)
+    .ref(`users/${keyify(username)}/${playerUid}/games/${gameKey}`)
     .set(createGameDigestFromGame(game));
   await Promise.all([p2]);
 };

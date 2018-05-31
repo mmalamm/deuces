@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
-import admin from "./admin";
-const db = admin.database();
+import { db, keyify, getUsernameFromUid } from "./admin";
 
 export const createUser = functions.auth
   .user()
@@ -13,17 +12,16 @@ export const createUser = functions.auth
     ]).catch(e => console.error(e));
   });
 
-export const deleteUser = functions.auth.user().onDelete(async e => {
-  console.log("deleting user:", e.displayName, e.email);
-  const _userRef = db.ref(`/_users/${e.uid}`);
-  const usernameSnapshot = await _userRef.child("username").once("value");
-  const username = usernameSnapshot.val();
-  console.log(username);
-  return Promise.all([
-    _userRef.set(null),
-    db.ref(`users/${username.replace(/\s/g, "").toLowerCase()}`).set(null)
-  ]);
-});
+export const deleteUser = functions.auth
+  .user()
+  .onDelete(async ({ displayName, email, uid }) => {
+    console.log("deleting user:", displayName, email);
+    const username = await getUsernameFromUid(uid);
+    return Promise.all([
+      db.ref(`_users/${uid}`).set(null),
+      db.ref(`users/${keyify(username)}`).set(null)
+    ]).catch(e => console.error(e));
+  });
 
 import app from "./api";
 
