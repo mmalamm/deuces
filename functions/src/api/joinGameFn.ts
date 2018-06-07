@@ -19,3 +19,5 @@ const joinGameFn = async (req, res) => {
     res.status(428).send('User not allowed in game');
   }
 };
+
+export default joinGameFn;

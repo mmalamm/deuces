@@ -12,6 +12,7 @@ const openGamesRef = db.ref("openGames");
 export const checkInvite = (game: _game, playerUid: string): boolean =>
   !!game.invites.map(i => i.uid).find(uid => uid === playerUid);
 
+// skills that pay the bills
 export const makeInvitesFromUsernames = async (
   invitedUsernames: string[]
 ): Promise<_invite[]> =>
@@ -135,7 +136,7 @@ const createGameDigestFromGame = game => {
   }
 };
 
-export const addGameToOpenGames = async (gameKey: string) =>
+export const addGameToOpenGames = (gameKey: string) =>
   new Promise(async (resolve, reject) => {
     const game = await get_gameFromGameKey(gameKey);
     const gameDigest = createGameDigestFromGame(game);

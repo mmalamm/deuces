@@ -22,7 +22,7 @@ export const getUidFromUsername = (username: string): Promise<string> =>
     db
       .ref(`users/${username}/uid`)
       .once("value", snapshot => {
-        const uid = snapshot.val();
+        const uid: string = snapshot.val();
         resolve(uid);
       })
       .catch(e => console.error(e));
