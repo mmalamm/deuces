@@ -7,7 +7,11 @@ import {
 } from "../actions/games";
 
 const mapStateToProps = ({ games, auth }) => ({
-  games: games ? Object.keys(games).map(key => games[key]) : [],
+  /// need to turn these into arrays
+  // for easier digestion by Gamelist
+  invites: games.invites,
+  openGames: games.openGames,
+  myGames: games.myGames,
   username: auth.username.toLowerCase()
 });
 

@@ -11,12 +11,14 @@ class NewGameForm extends Component {
     this.setState(() => ({ gameName }));
   };
   handleSubmit = e => {
-    const { username } = this.props.user;
     const { gameName } = this.state;
-    this.props.submitNewGameForm({ username, gameName });
+    this.props.submitNewGameForm({ gameName });
   };
   render() {
     const { hideModal } = this.props;
+    /// still have to add invite functionality
+    // inviteOnly true/false
+    // invite usernames[]
     return (
       <Modal>
         <div className="NewGameForm">

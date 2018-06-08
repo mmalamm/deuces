@@ -7,7 +7,11 @@ const initialState = {
     username: null
   },
   modal: null,
-  games: {}
+  games: {
+    invites: {},
+    myGames: {},
+    openGames: {}
+  }
 };
 
 export default initialState;

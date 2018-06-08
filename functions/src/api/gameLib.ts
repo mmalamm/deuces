@@ -6,6 +6,32 @@ import {
   getUidFromUsername
 } from "../admin";
 
+interface Player {
+  photoURL: string;
+  position: 0 | 1 | 2 | 3;
+  username: string;
+}
+
+interface _invite {
+  username: string;
+  uid: string;
+  status: "ACCEPTED" | "PENDING" | "REJECTED";
+}
+
+export interface _game {
+  gameName: string;
+  ownerUid: string;
+  gameStatus: "NEW_GAME" | "MATCH_STARTED" | "MATCH_ENDED";
+  inviteOnly: boolean;
+  invites?: _invite[];
+  gameKey?: string;
+  players?;
+}
+
+export interface gameDigest {
+  gameStatus: "NEW_GAME" | "MATCH_STARTED" | "MATCH_ENDED";
+}
+
 const _gamesRef = db.ref("_games");
 const openGamesRef = db.ref("openGames");
 
@@ -81,27 +107,6 @@ const getNextPositionFromGamekey = gameKey => {
   });
 };
 
-interface Player {
-  photoURL: string;
-  position: 0 | 1 | 2 | 3;
-  username: string;
-}
-
-interface _invite {
-  username: string;
-  uid: string;
-  status: "ACCEPTED" | "PENDING" | "REJECTED";
-}
-
-export interface _game {
-  gameName: string;
-  ownerUid: string;
-  gameStatus: "NEW_GAME" | "MATCH_STARTED" | "MATCH_ENDED";
-  inviteOnly: boolean;
-  invites?: _invite[];
-  gameKey?: string;
-}
-
 const digestPlayers = (playersObj): Player[] => {
   console.log(playersObj);
 
@@ -113,7 +118,7 @@ const digestPlayers = (playersObj): Player[] => {
     .sort((a, b) => a.position - b.position);
 };
 
-const createGameDigestFromGame = game => {
+const createGameDigestFrom_game = (game: _game) => {
   switch (game.gameStatus) {
     case "NEW_GAME":
       return {
@@ -139,7 +144,7 @@ const createGameDigestFromGame = game => {
 export const addGameToOpenGames = (gameKey: string) =>
   new Promise(async (resolve, reject) => {
     const game = await get_gameFromGameKey(gameKey);
-    const gameDigest = createGameDigestFromGame(game);
+    const gameDigest = createGameDigestFrom_game(game);
     await openGamesRef.child(gameKey).set(gameDigest);
     resolve({ [gameKey]: gameDigest });
   });
@@ -166,6 +171,6 @@ export const addPlayerToGame = async (playerUid, gameKey) => {
 
   const p2 = db
     .ref(`users/${keyify(username)}/${playerUid}/games/${gameKey}`)
-    .set(createGameDigestFromGame(game));
+    .set(createGameDigestFrom_game(game));
   await Promise.all([p2]);
 };
