@@ -5,6 +5,9 @@
   left: 15%;
   right: 15%;
   min-height: 4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
 .NewGameForm-close {

@@ -1,23 +1,34 @@
 import React, { Component } from "react";
 import Modal from "../Modal";
+import Toggle from 'react-toggle';
 import "./NewGameForm.css";
+import "./Toggle.css";
 
 class NewGameForm extends Component {
   state = {
-    gameName: ""
+    gameName: "",
+    inviteOnly: false,
+    invitedUsernames: []
   };
   handleChange = e => {
     const gameName = e.target.value;
     this.setState(() => ({ gameName }));
   };
   handleSubmit = e => {
-    const { gameName } = this.state;
-    this.props.submitNewGameForm({ gameName });
+    const { gameName, inviteOnly, invitedUsernames } = this.state;
+    this.props.submitNewGameForm({ gameName, inviteOnly, invitedUsernames });
   };
+  handleToggle = e => {
+    this.setState(oldState => {
+      return {
+        inviteOnly: !oldState.inviteOnly
+      }
+    })
+  }
   render() {
+    console.log(this.state)
     const { hideModal } = this.props;
     /// still have to add invite functionality
-    // inviteOnly true/false
     // invite usernames[]
     return (
       <Modal>
@@ -28,6 +39,12 @@ class NewGameForm extends Component {
           <h2>Create New Game</h2>
           <div>Game Name:</div>
           <input onChange={this.handleChange} />
+          <label>
+            <span>Invite Only?</span>
+            <Toggle
+              defaultChecked={this.state.inviteOnly}
+              onChange={this.handleToggle} />
+          </label>
           <button onClick={this.handleSubmit}>Create Game</button>
         </div>
       </Modal>

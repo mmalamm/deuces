@@ -12,7 +12,7 @@ const createGameFn = async (req, res) => {
     idToken,
     gameName,
     inviteOnly = false,
-    invitedUsernames = null
+    invitedUsernames = []
   } = req.body;
 
   const uid = await getUidFromToken(idToken);
