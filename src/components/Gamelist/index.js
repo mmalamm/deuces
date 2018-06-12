@@ -20,8 +20,8 @@ class Gamelist extends Component {
     return (
       <div className="Gamelist">
         <h1>bovine corvus</h1>
-        {invites.length != 0 && <h2>Invites</h2>}
-        {invites.length != 0 && (
+        {invites.length !== 0 && <h2>Invites</h2>}
+        {invites.length !== 0 && (
           <div>
             {invites.map(i => (
               <div key={i.gameKey}>

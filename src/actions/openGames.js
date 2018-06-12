@@ -1,4 +1,4 @@
-import { database, auth } from "../fire";
+import { database } from "../fire";
 import { child_added, child_removed } from "../utils/constants";
 
 const receiveOpenGame = gameData => {
@@ -12,7 +12,6 @@ const removeOpenGame = gameData => ({
 let receiveOpenGameHandler, removeOpenGameHandler, openGamesRef;
 
 export const startListeningToOpenGameChanges = () => {
-  const { uid } = auth.currentUser;
   openGamesRef = database.ref("openGames");
   return dispatch => {
     dispatch({ type: "FETCHING_OPEN_GAMES" });
