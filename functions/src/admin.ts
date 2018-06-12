@@ -5,6 +5,14 @@ admin.initializeApp();
 export const db = admin.database();
 export const keyify = (uname: string): string => uname.toLowerCase();
 
+interface _user {
+  email?: string;
+  displayName: string;
+  photoURL: string;
+  points: number;
+  username?: string;
+}
+
 export const getUidFromToken = (idToken: string): Promise<string> =>
   new Promise((resolve, reject) => {
     admin
@@ -56,14 +64,6 @@ export const getUserFromUsername = (
       })
       .catch(e => console.error(e));
   });
-
-interface _user {
-  email?: string;
-  displayName: string;
-  photoURL: string;
-  points: number;
-  username?: string;
-}
 
 const get_userFromUid = (uid: string): Promise<_user> =>
   new Promise((resolve, reject) => {

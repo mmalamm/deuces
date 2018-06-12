@@ -1,13 +1,6 @@
 import initialState from "../initial-state";
 
-function removeKey(myObj, deleteKey) {
-  return Object.assign(
-    {},
-    ...Object.entries(myObj)
-      .filter(([k]) => k !== deleteKey)
-      .map(([k, v]) => ({ [k]: v }))
-  );
-}
+import { removeKey } from "../utils/helpers";
 
 export default function gamesReducer(state = initialState.games, action) {
   switch (action.type) {

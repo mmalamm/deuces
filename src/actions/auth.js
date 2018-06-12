@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { initUserEndpoint } from "./api";
+import { initUserEndpoint } from "../utils/api";
 
 import {
   auth,

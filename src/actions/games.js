@@ -1,8 +1,10 @@
 import { database, auth } from "../fire";
-import { createGameEndpoint } from "./api";
+import { createGameEndpoint } from "../utils/api";
+import { child_added, child_removed } from "../utils/constants";
 import axios from "axios";
 
-let receiveGameHandler, userGamesRef, removeGameHandler;
+let receiveGameHandler, removeGameHandler, userGamesRef;
+
 const receiveGame = gameData => {
   return { type: "RECIEVE_GAME", game: gameData };
 };
@@ -45,10 +47,9 @@ export const startListeningToGameChanges = usernameKey => {
 };
 
 export const stopListeningToGameChanges = () => {
-  userGamesRef.off("child_added", receiveGameHandler);
-  userGamesRef.off("child_removed", removeGameHandler);
+  userGamesRef.off(child_added, receiveGameHandler);
+  userGamesRef.off(child_removed, removeGameHandler);
   return dispatch => {
-    console.log("stopped listening to game changes.");
     dispatch({ type: "STOP_LISTENING_TO_GAME_CHANGES" });
   };
 };

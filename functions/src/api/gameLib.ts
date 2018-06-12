@@ -26,6 +26,7 @@ export interface _game {
   invites?: _invite[];
   gameKey?: string;
   players?;
+  currentMatch?;
 }
 
 export interface gameDigest {
@@ -144,9 +145,9 @@ const createGameDigestFrom_game = (game: _game) => {
 export const addGameToOpenGames = (gameKey: string) =>
   new Promise(async (resolve, reject) => {
     const game = await get_gameFromGameKey(gameKey);
-    const gameDigest = createGameDigestFrom_game(game);
-    await openGamesRef.child(gameKey).set(gameDigest);
-    resolve({ [gameKey]: gameDigest });
+    const digest = createGameDigestFrom_game(game);
+    await openGamesRef.child(gameKey).set(digest);
+    resolve({ [gameKey]: digest });
   });
 
 export const addPlayerToGame = async (playerUid, gameKey) => {
