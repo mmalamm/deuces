@@ -109,8 +109,6 @@ const getNextPositionFromGamekey = gameKey => {
 };
 
 const digestPlayers = (playersObj): Player[] => {
-  console.log(playersObj);
-
   return Object.keys(playersObj)
     .map(k => {
       const { photoURL, position, username } = playersObj[k];
