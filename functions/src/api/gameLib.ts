@@ -89,33 +89,28 @@ export const makeGameAndGetKey = (game): Promise<string> =>
     });
   });
 
-const getNextPositionFromGamekey = gameKey => {
-  return new Promise((resolve, reject) => {
-    _gamesRef
-      .child(gameKey)
-      .child("players")
-      .once("value")
-      .then(snapshot => {
-        const players = snapshot.val();
-        resolve(
-          players
-            ? Math.max(...Object.keys(players).map(k => players[k].position)) +
-              1
-            : 0
-        );
-      })
-      .catch(e => console.error(e));
-  });
-};
-
-const digestPlayers = (playersObj): Player[] => {
-  return Object.keys(playersObj)
-    .map(k => {
-      const { photoURL, position, username } = playersObj[k];
-      return { photoURL, position, username };
+const getNextPositionFromGamekey = gameKey => new Promise((resolve, reject) => {
+  _gamesRef
+    .child(gameKey)
+    .child("players")
+    .once("value")
+    .then(snapshot => {
+      const players = snapshot.val();
+      resolve(
+        players
+          ? Math.max(...Object.keys(players).map(k => players[k].position)) + 1
+          : 0
+      );
     })
-    .sort((a, b) => a.position - b.position);
-};
+    .catch(e => console.error(e));
+});
+
+const digestPlayers = (playersObj): Player[] => Object.keys(playersObj)
+  .map(k => {
+    const { photoURL, position, username } = playersObj[k];
+    return { photoURL, position, username };
+  })
+  .sort((a, b) => a.position - b.position);
 
 const createGameDigestFrom_game = (game: _game) => {
   switch (game.gameStatus) {
@@ -173,3 +168,9 @@ export const addPlayerToGame = async (playerUid, gameKey) => {
     .set(createGameDigestFrom_game(game));
   await Promise.all([p2]);
 };
+
+export const sendInvites = async (gameKey: string, invites: _invite[]): Promise<void[]> =>
+  // add an invite for this game to each player's invites node
+  Promise.all(invites.map(({ username, uid, status }) =>
+    db.ref(`users/${keyify(username)}/${uid}/invites/${gameKey}`).set({ gameKey, status })
+  ))

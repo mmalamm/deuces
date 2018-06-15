@@ -4,12 +4,12 @@ import {
   addPlayerToGame,
   addGameToOpenGames,
   makeInvitesFromUsernames,
+  sendInvites,
   _game
 } from "./gameLib";
 
 const createGameFn = async (req, res) => {
   const { idToken, gameName, inviteOnly, invitedUsernames } = req.body;
-  console.log("create game fn hit!");
   const uid = await getUidFromToken(idToken);
   const invites = await makeInvitesFromUsernames(invitedUsernames);
   //first let's create the game and add it to the _games
@@ -23,11 +23,10 @@ const createGameFn = async (req, res) => {
   const gameKey = await makeGameAndGetKey(game);
 
   /// invites logic
-
+  await sendInvites(gameKey, invites);
   // now we push the gameDigest to players (only p1)
   // because this is the create game function
   await addPlayerToGame(uid, gameKey);
-  console.log("INVITTTTTT::", invitedUsernames);
   if (inviteOnly) {
     await addGameToOpenGames(gameKey);
   }
