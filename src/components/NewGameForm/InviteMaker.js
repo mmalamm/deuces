@@ -13,8 +13,8 @@ class InviteMaker extends Component {
       console.log("callback1 running", input);
       if (input.length === 0) return;
       database.ref(`users/${input}/public`).once("value", ss => {
-        console.log("callback2 running");
         const incomingData = ss.val();
+        console.log("callback2 running", incomingData);
         this.setState({
           incomingData
         });
@@ -22,13 +22,17 @@ class InviteMaker extends Component {
     };
   };
   onChange = e => {
-    const nameInput = e.target.value;
+    const username = e.target.value;
+    if (username.match(/\s/g)) return;
+    const usernameKey = username.toLowerCase();
+    if (!usernameKey.match(/^[a-z0-9]{0,20}$/)) return;
+
     this.setState(() => {
-      console.log("hehe", nameInput);
+      console.log("hehe", username);
       return {
-        nameInput
+        nameInput: username
       };
-    }, debounce(this.cbMaker(nameInput), 850));
+    }, debounce(this.cbMaker(usernameKey), 850, { leading: false, trailing: true }));
   };
   render() {
     return (
