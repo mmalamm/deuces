@@ -11,14 +11,15 @@ const receiveGame = gameData => {
 const removeGame = gameData => ({ type: "REMOVE_GAME", game: gameData });
 
 export const submitNewGameForm = data => {
-  const { gameName, inviteOnly } = data;
+  const { gameName, inviteOnly, invitedUsernames } = data;
   return async dispatch => {
     const idToken = await auth.currentUser.getIdToken(true);
     axios
       .post(createGameEndpoint, {
         idToken,
         gameName,
-        inviteOnly
+        inviteOnly,
+        invitedUsernames
       })
       .then(({ data }) => {
         console.log(data);

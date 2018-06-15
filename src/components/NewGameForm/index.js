@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import Toggle from "react-toggle";
 import Modal from "../Modal";
-import Toggle from 'react-toggle';
+import InviteMaker from "./InviteMaker";
 import "./NewGameForm.css";
 import "./Toggle.css";
 
@@ -22,11 +23,16 @@ class NewGameForm extends Component {
     this.setState(oldState => {
       return {
         inviteOnly: !oldState.inviteOnly
-      }
-    })
-  }
+      };
+    });
+  };
+  addName = name => {
+    this.setState(oldState => ({
+      invitedUsernames: oldState.invitedUsernames.concat([name])
+    }));
+  };
   render() {
-    console.log(this.state)
+    console.log(this.state);
     const { hideModal } = this.props;
     /// still have to add invite functionality
     // invite usernames[]
@@ -43,8 +49,10 @@ class NewGameForm extends Component {
             <span>Invite Only?</span>
             <Toggle
               defaultChecked={this.state.inviteOnly}
-              onChange={this.handleToggle} />
+              onChange={this.handleToggle}
+            />
           </label>
+          <InviteMaker addName={this.addName} />
           <button onClick={this.handleSubmit}>Create Game</button>
         </div>
       </Modal>

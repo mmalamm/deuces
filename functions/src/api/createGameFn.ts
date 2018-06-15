@@ -27,8 +27,8 @@ const createGameFn = async (req, res) => {
   // now we push the gameDigest to players (only p1)
   // because this is the create game function
   await addPlayerToGame(uid, gameKey);
-  console.log("INVITTTTTT::", inviteOnly);
-  if (!inviteOnly) {
+  console.log("INVITTTTTT::", invitedUsernames);
+  if (inviteOnly) {
     await addGameToOpenGames(gameKey);
   }
 
