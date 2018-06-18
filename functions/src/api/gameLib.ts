@@ -101,7 +101,7 @@ const getNextPositionFromGamekey = gameKey => new Promise((resolve, reject) => {
     .catch(e => console.error(e));
 });
 
-const digestPlayers = (playersObj): Player[] => Object.keys(playersObj)
+const digestPlayers = (playersObj: {}): Player[] => Object.keys(playersObj || {})
   .map(k => {
     const { photoURL, position, username } = playersObj[k];
     return { photoURL, position, username };
@@ -142,6 +142,7 @@ const addGameToOpenGames = (gameKey: string) =>
 
 const addPlayerToGame = async (playerUid, gameKey) => {
   /// refactor this
+  /// need to create updateDigests function
   const _gameRef = _gamesRef.child(gameKey);
   const playersRef = _gameRef.child("players");
   const username = await getUsernameFromUid(playerUid);
@@ -168,8 +169,9 @@ const addPlayerToGame = async (playerUid, gameKey) => {
 
 const sendInvites = async (gameKey: string, invites: _invite[]): Promise<void[]> =>
   // add an invite for this game to each player's invites node
-  Promise.all(invites.map(({ username, uid, status }) =>
-    db.ref(`users/${keyify(username)}/${uid}/invites/${gameKey}`).set({ gameKey, status })
+  Promise.all(invites.map(async ({ username, uid, status }) =>
+    db.ref(`users/${keyify(username)}/${uid}/invites/${gameKey}`)
+      .set(createGameDigestFrom_game(await get_gameFromGameKey(gameKey)))
   ))
 
 export {

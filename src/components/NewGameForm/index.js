@@ -9,7 +9,7 @@ class NewGameForm extends Component {
   state = {
     gameName: "",
     inviteOnly: false,
-    invitedUsernames: []
+    invitedUsernames: ['mtalam', 'bdalam', 'vlalam']
   };
   handleChange = e => {
     const gameName = e.target.value;
