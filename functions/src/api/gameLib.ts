@@ -29,18 +29,14 @@ export interface _game {
   currentMatch?;
 }
 
-export interface gameDigest {
-  gameStatus: "NEW_GAME" | "MATCH_STARTED" | "MATCH_ENDED";
-}
-
 const _gamesRef = db.ref("_games");
 const openGamesRef = db.ref("openGames");
 
-export const checkInvite = (game: _game, playerUid: string): boolean =>
+const checkInvite = (game: _game, playerUid: string): boolean =>
   !!game.invites.map(i => i.uid).find(uid => uid === playerUid);
 
 // skills that pay the bills
-export const makeInvitesFromUsernames = async (
+const makeInvitesFromUsernames = async (
   invitedUsernames: string[]
 ): Promise<_invite[]> =>
   new Promise<_invite[]>(async (resolve, reject) => {
@@ -57,7 +53,7 @@ export const makeInvitesFromUsernames = async (
     resolve(invites);
   });
 
-export const get_gameFromGameKey = (gameKey: string): Promise<_game> => {
+const get_gameFromGameKey = (gameKey: string): Promise<_game> => {
   return new Promise((resolve, reject) => {
     _gamesRef
       .child(gameKey)
@@ -73,7 +69,7 @@ export const get_gameFromGameKey = (gameKey: string): Promise<_game> => {
   });
 };
 
-export const makeGameAndGetKey = (game): Promise<string> =>
+const makeGameAndGetKey = (game): Promise<string> =>
   /// refactor this
   new Promise((resolve, reject) => {
     _gamesRef.push(game).then(gameRef => {
@@ -135,7 +131,7 @@ const createGameDigestFrom_game = (game: _game) => {
   }
 };
 
-export const addGameToOpenGames = (gameKey: string) =>
+const addGameToOpenGames = (gameKey: string) =>
   new Promise(async (resolve, reject) => {
     const game = await get_gameFromGameKey(gameKey);
     const digest = createGameDigestFrom_game(game);
@@ -143,7 +139,8 @@ export const addGameToOpenGames = (gameKey: string) =>
     resolve({ [gameKey]: digest });
   });
 
-export const addPlayerToGame = async (playerUid, gameKey) => {
+
+const addPlayerToGame = async (playerUid, gameKey) => {
   /// refactor this
   const _gameRef = _gamesRef.child(gameKey);
   const playersRef = _gameRef.child("players");
@@ -169,8 +166,18 @@ export const addPlayerToGame = async (playerUid, gameKey) => {
   await Promise.all([p2]);
 };
 
-export const sendInvites = async (gameKey: string, invites: _invite[]): Promise<void[]> =>
+const sendInvites = async (gameKey: string, invites: _invite[]): Promise<void[]> =>
   // add an invite for this game to each player's invites node
   Promise.all(invites.map(({ username, uid, status }) =>
     db.ref(`users/${keyify(username)}/${uid}/invites/${gameKey}`).set({ gameKey, status })
   ))
+
+export {
+  addGameToOpenGames,
+  addPlayerToGame,
+  checkInvite,
+  get_gameFromGameKey,
+  makeInvitesFromUsernames,
+  makeGameAndGetKey,
+  sendInvites
+};
