@@ -1,25 +1,29 @@
 import React, { Component } from "react";
 
-import debounce from "lodash/debounce";
 import { database } from "../../fire";
+
+import QuestionMark from '../AssetsSVG/question_mark.png';
+
+const userNotFound = { photoURL: QuestionMark, username: 'User Not Found' };
 
 class InviteMaker extends Component {
   state = {
     nameInput: "",
-    incomingData: null
+    userData: null
   };
-  cbMaker = input => {
-    return () => {
-      console.log("callback1 running", input);
-      if (input.length === 0) return;
-      database.ref(`users/${input}/public`).once("value", ss => {
-        const incomingData = ss.val();
-        console.log("callback2 running", incomingData);
-        this.setState({
-          incomingData
-        });
+  debounceTimer = null;
+  cbMaker = input => () => {
+    if (input.length === 0) {
+      return this.setState({
+        userData: null
       });
     };
+    database.ref(`users/${input}/public`).once("value", ss => {
+      const userData = ss.val() || userNotFound;
+      this.setState({
+        userData
+      });
+    });
   };
   onChange = e => {
     const username = e.target.value;
@@ -28,11 +32,16 @@ class InviteMaker extends Component {
     if (!usernameKey.match(/^[a-z0-9]{0,20}$/)) return;
 
     this.setState(() => {
-      console.log("hehe", username);
       return {
         nameInput: username
       };
-    }, debounce(this.cbMaker(usernameKey), 850, { leading: false, trailing: true }));
+    }, () => {
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(
+        this.cbMaker(usernameKey),
+        850
+      )
+    });
   };
   render() {
     return (
@@ -42,9 +51,18 @@ class InviteMaker extends Component {
           onChange={this.onChange}
           value={this.state.nameInput}
         />
-        <div style={{ color: "white" }}>
-          {JSON.stringify(this.state.incomingData)}
-        </div>
+        {
+          !!this.state.userData &&
+          <div style={{ color: "white" }}>
+            <img
+              className="Homebar-userinfo-img"
+              src={this.state.userData.photoURL}
+              alt=""
+              onClick={this.props.showChangePicForm}
+            />
+            <span>{this.state.userData.username}</span>
+          </div>
+        }
       </div>
     );
   }
