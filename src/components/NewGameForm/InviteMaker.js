@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import { database } from "../../fire";
 
-import QuestionMark from '../AssetsSVG/question_mark.png';
+import QuestionMark from "../AssetsSVG/question_mark.png";
 
-const userNotFound = { photoURL: QuestionMark, username: 'User Not Found' };
+const userNotFound = { photoURL: QuestionMark, username: "User Not Found" };
 
 class InviteMaker extends Component {
   state = {
@@ -17,7 +17,7 @@ class InviteMaker extends Component {
       return this.setState({
         userData: null
       });
-    };
+    }
     database.ref(`users/${input}/public`).once("value", ss => {
       const userData = ss.val() || userNotFound;
       this.setState({
@@ -31,17 +31,13 @@ class InviteMaker extends Component {
     const usernameKey = username.toLowerCase();
     if (!usernameKey.match(/^[a-z0-9]{0,20}$/)) return;
 
-    this.setState(() => {
-      return {
-        nameInput: username
-      };
-    }, () => {
-      clearTimeout(this.debounceTimer);
-      this.debounceTimer = setTimeout(
-        this.cbMaker(usernameKey),
-        850
-      )
-    });
+    this.setState(
+      () => ({ nameInput: username }),
+      () => {
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(this.cbMaker(usernameKey), 850);
+      }
+    );
   };
   render() {
     return (
@@ -51,8 +47,7 @@ class InviteMaker extends Component {
           onChange={this.onChange}
           value={this.state.nameInput}
         />
-        {
-          !!this.state.userData &&
+        {!!this.state.userData && (
           <div style={{ color: "white" }}>
             <img
               className="Homebar-userinfo-img"
@@ -62,7 +57,7 @@ class InviteMaker extends Component {
             />
             <span>{this.state.userData.username}</span>
           </div>
-        }
+        )}
       </div>
     );
   }

@@ -85,28 +85,31 @@ const makeGameAndGetKey = (game): Promise<string> =>
     });
   });
 
-const getNextPositionFromGamekey = gameKey => new Promise((resolve, reject) => {
-  _gamesRef
-    .child(gameKey)
-    .child("players")
-    .once("value")
-    .then(snapshot => {
-      const players = snapshot.val();
-      resolve(
-        players
-          ? Math.max(...Object.keys(players).map(k => players[k].position)) + 1
-          : 0
-      );
-    })
-    .catch(e => console.error(e));
-});
+const getNextPositionFromGamekey = gameKey =>
+  new Promise((resolve, reject) => {
+    _gamesRef
+      .child(gameKey)
+      .child("players")
+      .once("value")
+      .then(snapshot => {
+        const players = snapshot.val();
+        resolve(
+          players
+            ? Math.max(...Object.keys(players).map(k => players[k].position)) +
+              1
+            : 0
+        );
+      })
+      .catch(e => console.error(e));
+  });
 
-const digestPlayers = (playersObj: {}): Player[] => Object.keys(playersObj || {})
-  .map(k => {
-    const { photoURL, position, username } = playersObj[k];
-    return { photoURL, position, username };
-  })
-  .sort((a, b) => a.position - b.position);
+const digestPlayers = (playersObj: {}): Player[] =>
+  Object.keys(playersObj || {})
+    .map(k => {
+      const { photoURL, position, username } = playersObj[k];
+      return { photoURL, position, username };
+    })
+    .sort((a, b) => a.position - b.position);
 
 const createGameDigestFrom_game = (game: _game) => {
   switch (game.gameStatus) {
@@ -139,7 +142,6 @@ const addGameToOpenGames = (gameKey: string) =>
     resolve({ [gameKey]: digest });
   });
 
-
 const addPlayerToGame = async (playerUid, gameKey) => {
   /// refactor this
   /// need to create updateDigests function
@@ -167,12 +169,19 @@ const addPlayerToGame = async (playerUid, gameKey) => {
   await Promise.all([p2]);
 };
 
-const sendInvites = async (gameKey: string, invites: _invite[]): Promise<void[]> =>
+const sendInvites = async (
+  gameKey: string,
+  invites: _invite[]
+): Promise<void[]> => {
   // add an invite for this game to each player's invites node
-  Promise.all(invites.map(async ({ username, uid, status }) =>
-    db.ref(`users/${keyify(username)}/${uid}/invites/${gameKey}`)
-      .set(createGameDigestFrom_game(await get_gameFromGameKey(gameKey)))
-  ))
+  const game = await get_gameFromGameKey(gameKey);
+  const digest = createGameDigestFrom_game(game);
+  return Promise.all(
+    invites.map(async ({ username, uid, status }) =>
+      db.ref(`users/${keyify(username)}/${uid}/invites/${gameKey}`).set(digest)
+    )
+  );
+};
 
 export {
   addGameToOpenGames,
