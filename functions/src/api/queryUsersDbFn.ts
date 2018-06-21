@@ -1,9 +1,7 @@
-import firebase from "../../src/fire";
-
-const db = firebase.database();
+import { db } from '../admin'
 
 const queryUsersDbFn = (req, res) => {
-  const {input} = req.body;
+  const { input } = req.body;
   /// need to build this out into an endpoint to improve newGameForm UI
   db
     .ref()
@@ -13,7 +11,12 @@ const queryUsersDbFn = (req, res) => {
     .endAt(input + "\uf8ff")
     .once("value", ss => {
       const incomingData = ss.val();
-      res.json(incomingData)
+      if (incomingData) {
+        const outgoingData = Object.keys(incomingData).map(k => incomingData[k].public);
+        res.json(outgoingData);
+      } else {
+        res.send(null);
+      }
     });
 };
 

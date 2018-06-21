@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
-import { database } from "../../fire";
+// import { database } from "../../fire";
+import { queryUsersEndpoint } from '../../utils/api';
 
 import QuestionMark from "../AssetsSVG/question_mark.png";
+import axios from "axios";
 
 const userNotFound = { photoURL: QuestionMark, username: "User Not Found" };
 
@@ -18,12 +20,9 @@ class InviteMaker extends Component {
         userData: null
       });
     }
-    database.ref(`users/${input}/public`).once("value", ss => {
-      const userData = ss.val() || userNotFound;
-      this.setState({
-        userData
-      });
-    });
+    axios.post(queryUsersEndpoint, { input }).then(({data}) => {
+      this.setState({ userData: data })
+    })
   };
   onChange = e => {
     const username = e.target.value;
@@ -40,24 +39,23 @@ class InviteMaker extends Component {
     );
   };
   render() {
+    const { nameInput, userData } = this.state;
     return (
       <div className="App">
         <input
           type="text"
           onChange={this.onChange}
-          value={this.state.nameInput}
+          value={nameInput}
         />
-        {!!this.state.userData && (
-          <div style={{ color: "white" }}>
+        {!!userData && userData.map(d => (
+          <div key={d.username} style={{ color: "white" }}>
             <img
               className="Homebar-userinfo-img"
-              src={this.state.userData.photoURL}
-              alt=""
-              onClick={this.props.showChangePicForm}
+              src={d.photoURL}
             />
-            <span>{this.state.userData.username}</span>
+            <span>{d.username}</span>
           </div>
-        )}
+        ))}
       </div>
     );
   }
