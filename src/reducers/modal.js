@@ -7,7 +7,6 @@ export default function modalReducer(state = initialState.modal, action) {
     case "SHOW_CHANGE_PIC_FORM":
       return "CHANGE_PIC_FORM";
     case "HIDE_MODAL":
-      console.log(action);
       return null;
     default:
       return state;
