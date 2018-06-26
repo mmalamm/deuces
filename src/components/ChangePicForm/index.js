@@ -4,6 +4,7 @@ import { storage, auth } from "../../fire";
 import axios from "axios";
 import { CircularLoading } from "respinner";
 import Dropzone from "react-dropzone";
+import { changePhotoURLendpoint } from '../../utils/api';
 
 import "./ChangePicForm.css";
 
@@ -46,14 +47,10 @@ class ChangePicForm extends Component {
       .child(auth.currentUser.uid)
       .put(this.state.selectedFile);
 
-    const username = this.props.username || "";
-    const changePhotoURLendpoint =
-      "https://us-central1-deuces-bovinecorvus.cloudfunctions.net/api/change_photo_url";
     const idToken = await auth.currentUser.getIdToken(true);
     const downloadURL = snapshot.downloadURL;
     axios
       .post(changePhotoURLendpoint, {
-        username,
         idToken,
         downloadURL
       })
@@ -78,12 +75,12 @@ class ChangePicForm extends Component {
                 alt=""
               />
             ) : (
-              <CircularLoading
-                className="ChangePicForm-loading"
-                duration={1}
-                stroke="black"
-              />
-            )}
+                <CircularLoading
+                  className="ChangePicForm-loading"
+                  duration={1}
+                  stroke="black"
+                />
+              )}
           </div>
           <Dropzone
             className="ChangePicForm-dropzone"

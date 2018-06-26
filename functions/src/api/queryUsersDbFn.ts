@@ -8,7 +8,7 @@ const queryUsersDbFn = (req, res) => {
     .child("users")
     .orderByKey()
     .startAt(input)
-    .endAt(input + "\uf8ff")
+    .endAt(input + "\uf8ff") // uf8ff is the last utf char
     .once("value", ss => {
       const incomingData = ss.val();
       if (incomingData) {
@@ -17,6 +17,9 @@ const queryUsersDbFn = (req, res) => {
       } else {
         res.send(null);
       }
+    })
+    .catch(e => {
+      res.status(503).send('service failure')
     });
 };
 
