@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 
-// import { database } from "../../fire";
 import { queryUsersEndpoint } from '../../utils/api';
 
 import QuestionMark from "../AssetsSVG/question_mark.png";
 import axios from "axios";
 
-const userNotFound = { photoURL: QuestionMark, username: "User Not Found" };
+const userNotFound = [{ photoURL: QuestionMark, username: "User Not Found" }];
 
 class InviteMaker extends Component {
   state = {
@@ -20,8 +19,8 @@ class InviteMaker extends Component {
         userData: null
       });
     }
-    axios.post(queryUsersEndpoint, { input }).then(({data}) => {
-      this.setState({ userData: data })
+    axios.post(queryUsersEndpoint, { input }).then(({ data }) => {
+      this.setState({ userData: data || userNotFound })
     })
   };
   onChange = e => {
@@ -38,6 +37,11 @@ class InviteMaker extends Component {
       }
     );
   };
+  addName = name => {
+    return e => {
+      this.props.addName(name);
+    }
+  }
   render() {
     const { nameInput, userData } = this.state;
     return (
@@ -52,8 +56,10 @@ class InviteMaker extends Component {
             <img
               className="Homebar-userinfo-img"
               src={d.photoURL}
+              alt={d.username}
             />
             <span>{d.username}</span>
+            {!this.props.isOnList(d.username) && d.username !== "User Not Found" && <button onClick={this.addName(d.username)}> + </button>}
           </div>
         ))}
       </div>

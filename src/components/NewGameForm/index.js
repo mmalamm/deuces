@@ -9,7 +9,7 @@ class NewGameForm extends Component {
   state = {
     gameName: "",
     inviteOnly: false,
-    invitedUsernames: ['mtalam', 'bdalam', 'vlalam']
+    invitedUsernames: []
   };
   handleChange = e => {
     const gameName = e.target.value;
@@ -29,8 +29,11 @@ class NewGameForm extends Component {
   addName = name => {
     this.setState(oldState => ({
       invitedUsernames: oldState.invitedUsernames.concat([name])
-    }));
+    }), () => console.log(this.state));
   };
+
+  isOnList = name =>  !!this.state.invitedUsernames.find(n => n === name);
+
   render() {
     console.log(this.state);
     const { hideModal } = this.props;
@@ -52,7 +55,7 @@ class NewGameForm extends Component {
               onChange={this.handleToggle}
             />
           </label>
-          <InviteMaker addName={this.addName} />
+          <InviteMaker isOnList={this.isOnList} addName={this.addName} />
           <button onClick={this.handleSubmit}>Create Game</button>
         </div>
       </Modal>
