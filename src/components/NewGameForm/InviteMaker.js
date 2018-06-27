@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { queryUsersEndpoint } from '../../utils/api';
+import { query_users } from '../../utils/api';
 
 import QuestionMark from "../AssetsSVG/question_mark.png";
 import axios from "axios";
@@ -19,7 +19,7 @@ class InviteMaker extends Component {
         userData: null
       });
     }
-    axios.post(queryUsersEndpoint, { input }).then(({ data }) => {
+    axios.post(query_users, { input }).then(({ data }) => {
       this.setState({ userData: data || userNotFound })
     })
   };

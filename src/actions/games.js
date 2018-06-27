@@ -1,5 +1,5 @@
 import { database, auth } from "../fire";
-import { createGameEndpoint } from "../utils/api";
+import { create_game } from "../utils/api";
 import { child_added, child_removed } from "../utils/constants";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ export const submitNewGameForm = data => {
   return async dispatch => {
     const idToken = await auth.currentUser.getIdToken(true);
     axios
-      .post(createGameEndpoint, {
+      .post(create_game, {
         idToken,
         gameName,
         inviteOnly,

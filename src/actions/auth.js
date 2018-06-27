@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { initUserEndpoint } from "../utils/api";
+import { init_user } from "../utils/api";
 
 import {
   auth,
@@ -54,7 +54,7 @@ export const submitNewUserForm = formData => {
     dispatch({ type: "ATTEMPTING_LOGIN" });
     auth.currentUser.getIdToken(true).then(idToken => {
       axios
-        .post(initUserEndpoint, {
+        .post(init_user, {
           ...formData,
           idToken
         })

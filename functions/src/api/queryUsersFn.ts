@@ -1,6 +1,6 @@
 import { db } from '../admin'
 
-const queryUsersDbFn = (req, res) => {
+const queryUsersFn = (req, res) => {
   const { input } = req.body;
   /// need to build this out into an endpoint to improve newGameForm UI
   db
@@ -23,4 +23,4 @@ const queryUsersDbFn = (req, res) => {
     });
 };
 
-export default queryUsersDbFn;
+export default queryUsersFn;

@@ -1,6 +1,6 @@
 import { getUidFromToken, db, getUsernameFromUid, keyify } from "../admin";
 
-const changePhotoUrlFn = async (req, res) => {
+const changePhotoFn = async (req, res) => {
   const { idToken, downloadURL } = req.body;
   const uid = await getUidFromToken(idToken);
   const username = await getUsernameFromUid(uid);
@@ -20,4 +20,4 @@ const changePhotoUrlFn = async (req, res) => {
     .catch(e => console.error(e));
 };
 
-export default changePhotoUrlFn;
+export default changePhotoFn;

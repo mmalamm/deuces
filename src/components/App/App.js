@@ -4,21 +4,9 @@ import Gamelist from "../../containers/Gamelist";
 import Loading from "../Loading/Loading";
 import Login from "../../containers/Login";
 import "./App.css";
-import NewGameForm from "../../containers/NewGameForm";
 import NewUserForm from "../../containers/NewUserForm";
 import Logo from "../AssetsSVG/Logo";
-import ChangePicForm from "../../containers/ChangePicForm";
-
-const renderModal = modalName => {
-  switch (modalName) {
-    case "NEW_GAME_FORM":
-      return <NewGameForm />;
-    case "CHANGE_PIC_FORM":
-      return <ChangePicForm />;
-    default:
-      return null;
-  }
-};
+import renderModal from './renderModal';
 
 class App extends Component {
   renderHomescreen = () => {

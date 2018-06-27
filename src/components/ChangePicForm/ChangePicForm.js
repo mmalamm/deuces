@@ -4,7 +4,7 @@ import { storage, auth } from "../../fire";
 import axios from "axios";
 import { CircularLoading } from "respinner";
 import Dropzone from "react-dropzone";
-import { changePhotoURLendpoint } from '../../utils/api';
+import { change_photo } from '../../utils/api';
 
 import "./ChangePicForm.css";
 
@@ -50,7 +50,7 @@ class ChangePicForm extends Component {
     const idToken = await auth.currentUser.getIdToken(true);
     const downloadURL = snapshot.downloadURL;
     axios
-      .post(changePhotoURLendpoint, {
+      .post(change_photo, {
         idToken,
         downloadURL
       })
