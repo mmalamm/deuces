@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import NewUserForm from "../components/NewUserForm";
+import NewUserForm from "../components/NewUserForm/NewUserForm";
 import { submitNewUserForm, signOut } from "../actions/auth";
 import { showChangePicForm } from "../actions/modal";
 

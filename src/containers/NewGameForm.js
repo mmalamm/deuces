@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import NewGameForm from "../components/NewGameForm";
+import NewGameForm from "../components/NewGameForm/NewGameForm";
 import { hideModal } from "../actions/modal";
 import { submitNewGameForm } from "../actions/games";
 

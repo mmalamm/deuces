@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Toggle from "react-toggle";
-import Modal from "../Modal";
+import Modal from "../Modal/Modal";
 import InviteMaker from "./InviteMaker";
 import "./NewGameForm.css";
 import "./Toggle.css";

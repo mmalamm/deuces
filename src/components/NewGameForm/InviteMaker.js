@@ -37,10 +37,8 @@ class InviteMaker extends Component {
       }
     );
   };
-  addName = name => {
-    return e => {
-      this.props.addName(name);
-    }
+  addName = name => e => {
+    this.props.addName(name);
   }
   render() {
     const { nameInput, userData } = this.state;

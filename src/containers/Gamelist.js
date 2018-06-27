@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Gamelist from "../components/Gamelist";
+import Gamelist from "../components/Gamelist/Gamelist";
 import {
   startListeningToGameChanges,
   stopListeningToGameChanges

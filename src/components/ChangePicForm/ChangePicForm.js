@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Modal from "../Modal";
+import Modal from "../Modal/Modal";
 import { storage, auth } from "../../fire";
 import axios from "axios";
 import { CircularLoading } from "respinner";

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Login from "../components/Login";
+import Login from "../components/Login/Login";
 import { signInWithGithub, signInWithGoogle } from "../actions/auth";
 
 const mapDispatchToProps = dispatch => {
