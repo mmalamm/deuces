@@ -1,43 +1,43 @@
-[debug] [2018-06-27T16:24:01.259Z] ----------------------------------------------------------------------
-[debug] [2018-06-27T16:24:01.261Z] Command:       /usr/local/bin/node /Users/mmalamm/Desktop/trash/deuces/functions/node_modules/.bin/firebase serve --only functions
-[debug] [2018-06-27T16:24:01.261Z] CLI Version:   3.18.6
-[debug] [2018-06-27T16:24:01.261Z] Platform:      darwin
-[debug] [2018-06-27T16:24:01.261Z] Node Version:  v8.9.4
-[debug] [2018-06-27T16:24:01.262Z] Time:          Wed Jun 27 2018 12:24:01 GMT-0400 (EDT)
-[debug] [2018-06-27T16:24:01.262Z] ----------------------------------------------------------------------
+[debug] [2018-06-29T21:58:27.308Z] ----------------------------------------------------------------------
+[debug] [2018-06-29T21:58:27.310Z] Command:       /usr/local/bin/node /Users/mmalamm/Desktop/trash/deuces/functions/node_modules/.bin/firebase serve --only functions
+[debug] [2018-06-29T21:58:27.310Z] CLI Version:   3.18.6
+[debug] [2018-06-29T21:58:27.310Z] Platform:      darwin
+[debug] [2018-06-29T21:58:27.310Z] Node Version:  v8.9.4
+[debug] [2018-06-29T21:58:27.311Z] Time:          Fri Jun 29 2018 17:58:27 GMT-0400 (EDT)
+[debug] [2018-06-29T21:58:27.311Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-06-27T16:24:01.276Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-06-27T16:24:01.277Z] > authorizing via signed-in user
-[debug] [2018-06-27T16:24:01.278Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-06-27T16:24:01.278Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2018-06-29T21:58:27.322Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-29T21:58:27.322Z] > authorizing via signed-in user
+[debug] [2018-06-29T21:58:27.324Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-06-29T21:58:27.324Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  { refresh_token: '1/jnt2zs33WRhUSkeWxjcj3-9kcvzHTiAmNVtIheoCs7s',
   client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
   client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
   grant_type: 'refresh_token',
   scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Wed Jun 27 2018 12:24:01 GMT-0400 (EDT)
-[debug] [2018-06-27T16:24:01.465Z] <<< HTTP RESPONSE 200
-[debug] [2018-06-27T16:24:01.482Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/deuces-bovinecorvus  
+ Fri Jun 29 2018 17:58:27 GMT-0400 (EDT)
+[debug] [2018-06-29T21:58:27.465Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-29T21:58:27.482Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/deuces-bovinecorvus  
   
- Wed Jun 27 2018 12:24:01 GMT-0400 (EDT)
-[debug] [2018-06-27T16:24:01.800Z] <<< HTTP RESPONSE 200
-[debug] [2018-06-27T16:24:01.801Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/deuces-bovinecorvus/tokens  
+ Fri Jun 29 2018 17:58:27 GMT-0400 (EDT)
+[debug] [2018-06-29T21:58:27.781Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-29T21:58:27.782Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/deuces-bovinecorvus/tokens  
   
- Wed Jun 27 2018 12:24:01 GMT-0400 (EDT)
-[debug] [2018-06-27T16:24:03.647Z] <<< HTTP RESPONSE 200
-[debug] [2018-06-27T16:24:03.649Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/deuces-bovinecorvus  
+ Fri Jun 29 2018 17:58:27 GMT-0400 (EDT)
+[debug] [2018-06-29T21:58:28.236Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-29T21:58:28.237Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/deuces-bovinecorvus  
   
- Wed Jun 27 2018 12:24:03 GMT-0400 (EDT)
-[debug] [2018-06-27T16:24:03.967Z] <<< HTTP RESPONSE 200
+ Fri Jun 29 2018 17:58:28 GMT-0400 (EDT)
+[debug] [2018-06-29T21:58:28.519Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/mmalamm/Desktop/trash/deuces'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2018-06-27T16:24:04.647Z] Fetching environment
-[debug] [2018-06-27T16:24:04.648Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/769484438430:getServerAppConfig  
+[debug] [2018-06-29T21:58:29.195Z] Fetching environment
+[debug] [2018-06-29T21:58:29.197Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/769484438430:getServerAppConfig  
   
- Wed Jun 27 2018 12:24:04 GMT-0400 (EDT)
-[debug] [2018-06-27T16:24:05.184Z] <<< HTTP RESPONSE 200
-[debug] [2018-06-27T16:24:05.184Z] Starting @google-cloud/functions-emulator
-[debug] [2018-06-27T16:24:06.740Z] Parsing function triggers
+ Fri Jun 29 2018 17:58:29 GMT-0400 (EDT)
+[debug] [2018-06-29T21:58:29.518Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-29T21:58:29.518Z] Starting @google-cloud/functions-emulator
+[debug] [2018-06-29T21:58:31.079Z] Parsing function triggers
 [info] ✔  functions: api: http://localhost:5000/deuces-bovinecorvus/us-central1/api
