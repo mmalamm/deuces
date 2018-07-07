@@ -9,6 +9,7 @@ const queryUsersFn = (req, res) => {
     .orderByKey()
     .startAt(input)
     .endAt(input + "\uf8ff") // uf8ff is the last utf char
+    .limitToFirst(5)
     .once("value", ss => {
       const incomingData = ss.val();
       if (incomingData) {

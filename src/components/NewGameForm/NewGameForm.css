@@ -1,13 +1,11 @@
 .NewGameForm {
   position: fixed;
   background-color: blue;
-  top: 15%;
-  left: 15%;
-  right: 15%;
   min-height: 4rem;
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  margin-top: 2.5rem;
 }
 
 .NewGameForm-close {

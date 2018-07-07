@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { query_users } from '../../utils/api';
+import { query_users } from "../../utils/api";
 
 import QuestionMark from "../AssetsSVG/question_mark.png";
 import axios from "axios";
@@ -20,8 +20,8 @@ class InviteMaker extends Component {
       });
     }
     axios.post(query_users, { input }).then(({ data }) => {
-      this.setState({ userData: data || userNotFound })
-    })
+      this.setState({ userData: data || userNotFound });
+    });
   };
   onChange = e => {
     const username = e.target.value;
@@ -37,29 +37,38 @@ class InviteMaker extends Component {
       }
     );
   };
-  addName = name => e => {
-    this.props.addName(name);
-  }
+  addUser = user => e => {
+    console.log(user);
+    this.props.addUser(user);
+  };
   render() {
     const { nameInput, userData } = this.state;
     return (
       <div className="App">
-        <input
-          type="text"
-          onChange={this.onChange}
-          value={nameInput}
-        />
-        {!!userData && userData.map(d => (
-          <div key={d.username} style={{ color: "white" }}>
-            <img
-              className="Homebar-userinfo-img"
-              src={d.photoURL}
-              alt={d.username}
-            />
-            <span>{d.username}</span>
-            {!this.props.isOnList(d.username) && d.username !== "User Not Found" && <button onClick={this.addName(d.username)}> + </button>}
-          </div>
-        ))}
+        <input type="text" onChange={this.onChange} value={nameInput} />
+        {!!userData &&
+          userData.map(d => (
+            <div key={d.username} style={{ color: "white" }}>
+              <img
+                className="Homebar-userinfo-img"
+                src={d.photoURL}
+                alt={d.username}
+              />
+              <span>{d.username}</span>
+              {!this.props.isOnList(d.username) &&
+                d.username !== "User Not Found" && (
+                  <button
+                    onClick={this.addUser({
+                      username: d.username,
+                      photoURL: d.photoURL
+                    })}
+                  >
+                    {" "}
+                    +{" "}
+                  </button>
+                )}
+            </div>
+          ))}
       </div>
     );
   }
