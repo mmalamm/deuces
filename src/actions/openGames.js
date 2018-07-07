@@ -1,9 +1,10 @@
 import { database } from "../fire";
 import { child_added, child_removed } from "../utils/constants";
 
-const receiveOpenGame = gameData => {
-  return { type: "RECIEVE_OPEN_GAME", openGame: gameData };
-};
+const receiveOpenGame = gameData => ({
+  type: "RECIEVE_OPEN_GAME",
+  openGame: gameData
+});
 const removeOpenGame = gameData => ({
   type: "REMOVE_OPEN_GAME",
   openGame: gameData

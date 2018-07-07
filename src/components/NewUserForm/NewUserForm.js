@@ -122,7 +122,7 @@ class NewUserForm extends Component {
         </div>
         <div className="NewUserForm-signoutText">
           or{" "}
-          <a className="NewUserForm-link" onClick={() => signOut()}>
+          <a className="NewUserForm-link" onClick={signOut}>
             sign out
           </a>
         </div>
