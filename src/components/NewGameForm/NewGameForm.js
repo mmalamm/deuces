@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Toggle from "react-toggle";
-import Modal from "../Modal/Modal";
 import InviteMaker from "./InviteMaker";
 import AddedList from "./AddedList";
 import "./NewGameForm.css";
@@ -47,30 +46,29 @@ class NewGameForm extends Component {
     /// still have to add invite functionality
     // invite usernames[]
     return (
-      <Modal>
-        <div className="NewGameForm">
-          <div className="NewGameForm-close" onClick={hideModal}>
-            ✖
-          </div>
-          <h2>Create New Game</h2>
-          <div>Game Name:</div>
-          <input onChange={this.handleChange} />
-          <label>
-            <span>Invite Only?</span>
-            <Toggle defaultChecked={inviteOnly} onChange={this.handleToggle} />
-          </label>
-          <InviteMaker isOnList={this.isOnList} addUser={this.addUser} />
-          <ul>
-            {invitedUsers.map(u => (
-              <li key={u.username}>
-                <img src={u.photoURL} alt="" />
-                <span>{u.username}</span>
-              </li>
-            ))}
-          </ul>
-          <button onClick={this.handleSubmit}>Create Game</button>
+      <div className="NewGameForm">
+        <div className="NewGameForm-close" onClick={hideModal}>
+          ✖
         </div>
-      </Modal>
+        <h2>Create New Game</h2>
+        <div>Game Name:</div>
+        <input onChange={this.handleChange} />
+        <label>
+          <span>Invite Only?</span>
+          <Toggle defaultChecked={inviteOnly} onChange={this.handleToggle} />
+        </label>
+        <InviteMaker isOnList={this.isOnList} addUser={this.addUser} />
+        {/* <ul>
+          {invitedUsers.map(u => (
+            <li key={u.username}>
+              <img src={u.photoURL} alt="" />
+              <span>{u.username}</span>
+            </li>
+          ))}
+        </ul> */}
+        <AddedList invitedUsers={invitedUsers} />
+        <button onClick={this.handleSubmit}>Create Game</button>
+      </div>
     );
   }
 }

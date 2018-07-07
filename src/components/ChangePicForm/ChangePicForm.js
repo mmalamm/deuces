@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import Modal from "../Modal/Modal";
 import { storage, auth } from "../../fire";
 import axios from "axios";
 import { CircularLoading } from "respinner";
 import Dropzone from "react-dropzone";
-import { change_photo } from '../../utils/api';
+import { change_photo } from "../../utils/api";
 
 import "./ChangePicForm.css";
 
@@ -61,35 +60,33 @@ class ChangePicForm extends Component {
   };
   render() {
     return (
-      <Modal>
-        <div className="ChangePicForm-changePicModal">
-          <h2 className="ChangePicForm-modalHeading">Change Your Picture</h2>
-          <div className="ChangePicForm-close" onClick={this.props.closeModal}>
-            ✖
-          </div>
-          <div className="ChangePicForm-picture">
-            {this.state.selectedPic.length ? (
-              <img
-                src={this.state.selectedPic}
-                className="ChangePicForm-chosenImg"
-                alt=""
-              />
-            ) : (
-                <CircularLoading
-                  className="ChangePicForm-loading"
-                  duration={1}
-                  stroke="black"
-                />
-              )}
-          </div>
-          <Dropzone
-            className="ChangePicForm-dropzone"
-            onDrop={this.fileSelectedHandler}
-          >
-            Upload Picture
-          </Dropzone>
+      <div className="ChangePicForm-changePicModal">
+        <h2 className="ChangePicForm-modalHeading">Change Your Picture</h2>
+        <div className="ChangePicForm-close" onClick={this.props.closeModal}>
+          ✖
         </div>
-      </Modal>
+        <div className="ChangePicForm-picture">
+          {this.state.selectedPic.length ? (
+            <img
+              src={this.state.selectedPic}
+              className="ChangePicForm-chosenImg"
+              alt=""
+            />
+          ) : (
+            <CircularLoading
+              className="ChangePicForm-loading"
+              duration={1}
+              stroke="black"
+            />
+          )}
+        </div>
+        <Dropzone
+          className="ChangePicForm-dropzone"
+          onDrop={this.fileSelectedHandler}
+        >
+          Upload Picture
+        </Dropzone>
+      </div>
     );
   }
 }
