@@ -6,14 +6,16 @@ import changePhotoFn from "./changePhotoFn";
 import createGameFn from "./createGameFn";
 import joinGameFn from "./joinGameFn";
 import queryUsersFn from "./queryUsersFn";
+import authenticate from "./authenticate";
 
 const app = express();
 
 app.use(cors());
+app.use(authenticate);
 app.post("/init_user", initUserFn);
 app.post("/change_photo", changePhotoFn);
 app.post("/create_game", createGameFn);
 app.post("/join_game", joinGameFn);
-app.post('/query_users', queryUsersFn);
+app.post("/query_users", queryUsersFn);
 
 export default app;

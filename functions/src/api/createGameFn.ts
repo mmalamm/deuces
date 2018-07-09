@@ -9,16 +9,17 @@ import {
 } from "./gameLib";
 
 const createGameFn = async (req, res) => {
-  const { idToken, gameName, inviteOnly, invitedUsernames } = req.body;
+  const { gameName, inviteOnly, invitedUsernames } = req.body;
+  const { uid } = req;
 
   /// validations
   /// if invite only, there must be at least 3 invites
-  if (inviteOnly && invitedUsernames.length < 3)
+  if (inviteOnly && invitedUsernames.length < 3) {
     return res
       .status(428)
-      .send('Invite Only games require at least three invites');
+      .send("Invite Only games require at least three invites");
+  }
 
-  const uid = await getUidFromToken(idToken);
   const invites = await makeInvitesFromUsernames(invitedUsernames);
   //first let's create the game and add it to the _games
   const game: _game = {

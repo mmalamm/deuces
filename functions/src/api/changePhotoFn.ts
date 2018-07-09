@@ -1,8 +1,8 @@
 import { getUidFromToken, db, getUsernameFromUid, keyify } from "../admin";
 
 const changePhotoFn = async (req, res) => {
-  const { idToken, downloadURL } = req.body;
-  const uid = await getUidFromToken(idToken);
+  const { downloadURL } = req.body;
+  const { uid } = req;
   const username = await getUsernameFromUid(uid);
 
   const p1 = db

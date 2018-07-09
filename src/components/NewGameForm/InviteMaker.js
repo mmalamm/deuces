@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
-import { query_users } from "../../utils/api";
-
 import QuestionMark from "../AssetsSVG/question_mark.png";
-import axios from "axios";
+
+import queryUsersCall from "../../utils/queryUsersCall";
 
 const userNotFound = [{ photoURL: QuestionMark, username: "User Not Found" }];
 
@@ -19,7 +18,8 @@ class InviteMaker extends Component {
         userData: null
       });
     }
-    axios.post(query_users, { input }).then(({ data }) => {
+
+    queryUsersCall(input).then(data => {
       this.setState({ userData: data || userNotFound });
     });
   };
@@ -56,15 +56,14 @@ class InviteMaker extends Component {
               />
               <span>{d.username}</span>
               {!this.props.isOnList(d.username) &&
-                d.username !== "User Not Found" && (
+                d.username !== userNotFound.username && (
                   <button
                     onClick={this.addUser({
                       username: d.username,
                       photoURL: d.photoURL
                     })}
                   >
-                    {" "}
-                    +{" "}
+                    Invite
                   </button>
                 )}
             </div>

@@ -1,10 +1,9 @@
-import { db } from '../admin'
+import { db } from "../admin";
 
 const queryUsersFn = (req, res) => {
   const { input } = req.body;
   /// need to build this out into an endpoint to improve newGameForm UI
-  db
-    .ref()
+  db.ref()
     .child("users")
     .orderByKey()
     .startAt(input)
@@ -13,14 +12,16 @@ const queryUsersFn = (req, res) => {
     .once("value", ss => {
       const incomingData = ss.val();
       if (incomingData) {
-        const outgoingData = Object.keys(incomingData).map(k => incomingData[k].public);
+        const outgoingData = Object.keys(incomingData)
+          .filter(k => incomingData[k].uid !== req.uid)
+          .map(k => incomingData[k].public);
         res.json(outgoingData);
       } else {
         res.send(null);
       }
     })
     .catch(e => {
-      res.status(503).send('service failure')
+      res.status(503).send("service failure");
     });
 };
 

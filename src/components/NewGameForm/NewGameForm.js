@@ -58,16 +58,8 @@ class NewGameForm extends Component {
           <Toggle defaultChecked={inviteOnly} onChange={this.handleToggle} />
         </label>
         <InviteMaker isOnList={this.isOnList} addUser={this.addUser} />
-        {/* <ul>
-          {invitedUsers.map(u => (
-            <li key={u.username}>
-              <img src={u.photoURL} alt="" />
-              <span>{u.username}</span>
-            </li>
-          ))}
-        </ul> */}
         <AddedList invitedUsers={invitedUsers} />
-        <button onClick={this.handleSubmit}>Create Game</button>
+        {/* <button onClick={this.handleSubmit}>Create Game</button> */}
       </div>
     );
   }

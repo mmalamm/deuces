@@ -1,12 +1,9 @@
 import { get_gameFromGameKey, checkInvite, addPlayerToGame } from "./gameLib";
-import { getUidFromToken } from "../admin";
-
-//
 
 const joinGameFn = async (req, res) => {
-  const { idToken, gameKey } = req.body;
+  const { gameKey } = req.body;
 
-  const uid = await getUidFromToken(idToken);
+  const { uid } = req;
   const game = await get_gameFromGameKey(gameKey);
 
   // make sure user can join game:
@@ -16,7 +13,7 @@ const joinGameFn = async (req, res) => {
     await addPlayerToGame(uid, game.gameKey);
     res.json(game);
   } else {
-    res.status(428).send('User not allowed in game');
+    res.status(428).send("User not allowed in game");
   }
 };
 
