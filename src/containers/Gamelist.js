@@ -3,7 +3,8 @@ import { bindActionCreators } from "redux";
 import Gamelist from "../components/Gamelist/Gamelist";
 import {
   startListeningToGameChanges,
-  stopListeningToGameChanges
+  stopListeningToGameChanges,
+  deleteGame
 } from "../actions/games";
 import {
   startListeningToOpenGameChanges,
@@ -32,9 +33,13 @@ const mapDispatchToProps = dispatch =>
       startListeningToOpenGameChanges,
       stopListeningToOpenGameChanges,
       startListeningToInviteChanges,
-      stopListeningToInviteChanges
+      stopListeningToInviteChanges,
+      deleteGame
     },
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Gamelist);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Gamelist);

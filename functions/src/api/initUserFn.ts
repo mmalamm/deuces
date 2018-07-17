@@ -4,7 +4,7 @@ const isValidUsername = (uname: string): boolean =>
   !!uname.toLowerCase().match(/^[a-z0-9]{4,20}$/);
 
 const initUserFn = async (req, res) => {
-  const { idToken, username } = req.body;
+  const { username } = req.body;
   const { uid } = req;
   const user = await getUserFromUsername(username);
 

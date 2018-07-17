@@ -59,7 +59,7 @@ class NewGameForm extends Component {
         </label>
         <InviteMaker isOnList={this.isOnList} addUser={this.addUser} />
         <AddedList invitedUsers={invitedUsers} />
-        {/* <button onClick={this.handleSubmit}>Create Game</button> */}
+        <button onClick={this.handleSubmit}>Create Game</button>
       </div>
     );
   }

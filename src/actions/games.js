@@ -1,5 +1,5 @@
 import { database, auth } from "../fire";
-import { create_game } from "../utils/api";
+import { create_game, delete_game } from "../utils/api";
 import { child_added, child_removed } from "../utils/constants";
 import axios from "axios";
 
@@ -23,6 +23,20 @@ export const submitNewGameForm = data => {
       })
       .then(({ data }) => {
         console.log(data);
+      });
+  };
+};
+
+export const deleteGame = gameKey => {
+  return async dispatch => {
+    const idToken = await auth.currentUser.getIdToken(true);
+    axios
+      .post(delete_game, {
+        idToken,
+        gameKey
+      })
+      .then(({ data }) => {
+        console.log("hey!!!", data);
       });
   };
 };

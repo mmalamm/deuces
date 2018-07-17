@@ -1,6 +1,5 @@
-import { getUidFromToken } from "../admin";
 import {
-  makeGameAndGetKey,
+  make_gameAndGetKey,
   addPlayerToGame,
   addGameToOpenGames,
   makeInvitesFromUsernames,
@@ -10,7 +9,7 @@ import {
 
 const createGameFn = async (req, res) => {
   const { gameName, inviteOnly, invitedUsernames } = req.body;
-  const { uid } = req;
+  const { uid, username } = req;
 
   /// validations
   /// if invite only, there must be at least 3 invites
@@ -24,16 +23,17 @@ const createGameFn = async (req, res) => {
   //first let's create the game and add it to the _games
   const game: _game = {
     gameName,
-    ownerUid: uid,
+    owner: { uid, username },
     gameStatus: "NEW_GAME",
     inviteOnly,
     invites
   };
 
-  const gameKey = await makeGameAndGetKey(game);
+  const gameKey = await make_gameAndGetKey(game);
 
   /// invites logic
   await sendInvites(gameKey, invites);
+  console.log("sent invites:", invites);
   // now we push the gameDigest to players (only p1)
   // because this is the create game function
   await addPlayerToGame(uid, gameKey);

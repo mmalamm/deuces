@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Gamelist.css";
+import DeleteButton from "./DeleteButton";
 
 class Gamelist extends Component {
   componentDidMount() {
@@ -12,6 +13,11 @@ class Gamelist extends Component {
     this.props.stopListeningToInviteChanges(this.props.username);
     this.props.stopListeningToOpenGameChanges();
   }
+  deleteGame = gameKey => {
+    return e => {
+      this.props.deleteGame(gameKey);
+    };
+  };
   render() {
     console.log(this.props.games);
     console.log(this.props.invites);
@@ -35,6 +41,9 @@ class Gamelist extends Component {
           {games.map(g => (
             <div key={g.gameKey}>
               <h3>{g.gameName}</h3>
+              {g.gameOwner === this.props.username && (
+                <DeleteButton deleteGame={this.deleteGame(g.gameKey)} />
+              )}
             </div>
           ))}
         </div>

@@ -1,19 +1,52 @@
-import { getUidFromToken } from "../admin";
-import { get_gameFromGameKey } from "./gameLib";
+import {
+  get_gameFromGameKey,
+  deleteGamerefsFromUsernames,
+  deleteOpengameFromGamekey,
+  delete_gameFromGamekey
+} from "./gameLib";
 
-const createGameFn = async (req, res) => {
+const deleteGameFn = async (req, res) => {
   const { uid } = req;
   const { gameKey } = req.body;
 
   const gameToDelete = await get_gameFromGameKey(gameKey);
-  // to delete a game, we gotta delete the hidden reference,
-  // player references (like invites and gamereferences)
-  // and open_game reference (if its an open game)
+  console.log(gameToDelete);
 
-  // also we gotta make sure the game belongs to whoever trying to delete it
-  // and that it can only be deleted if the game didnt start yet
+  if (gameToDelete.gameStatus !== "NEW_GAME") {
+    return res
+      .status(400)
+      .send("You can only delete games that have not yet started");
+  }
+  if (uid !== gameToDelete.owner.uid) {
+    return res.status(401).send("You can only delete a game that you created");
+  }
 
-  res.send("Game deleted");
+  const joinedPlayers = Object.keys(gameToDelete.players).map(
+    uid => gameToDelete.players[uid].username
+  );
+  const invitedPlayers = gameToDelete.invites.map(i => i.username);
+
+  const playerGamerefDeletionPromises = deleteGamerefsFromUsernames(
+    [...joinedPlayers, ...invitedPlayers],
+    gameKey
+  );
+
+  const opengamesDeletionPromise = !gameToDelete.inviteOnly
+    ? [deleteOpengameFromGamekey(gameKey)]
+    : [];
+  const _gameDeletionPromise = [delete_gameFromGamekey(gameKey)];
+
+  Promise.all([
+    ...playerGamerefDeletionPromises,
+    opengamesDeletionPromise,
+    _gameDeletionPromise
+  ])
+    .then(() => {
+      res.send("Game deleted");
+    })
+    .catch(() => {
+      res.status(500).send("Something went wrong");
+    });
 };
 
-export default createGameFn;
+export default deleteGameFn;
