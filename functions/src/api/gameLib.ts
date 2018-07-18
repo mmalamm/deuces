@@ -1,11 +1,4 @@
-import {
-  db,
-  getUsernameFromUid,
-  getUserFromUsername,
-  keyify,
-  getUidFromUsername
-} from "../admin";
-import { resolve } from "path";
+import { db, getUserFromUsername, keyify, getUidFromUsername } from "../admin";
 
 interface Player {
   photoURL: string;
@@ -22,7 +15,7 @@ interface gameDigest {}
 interface _invite {
   username: string;
   uid: string;
-  status: "ACCEPTED" | "PENDING" | "REJECTED";
+  status: string;
 }
 
 export interface _game {
@@ -45,7 +38,6 @@ const openGamesRef = db.ref("openGames");
 const checkInvite = (game: _game, playerUid: string): boolean =>
   !!game.invites.map(i => i.uid).find(uid => uid === playerUid);
 
-// skills that pay the bills
 const makeInvitesFromUsernames = async (
   invitedUsernames: string[]
 ): Promise<_invite[]> =>
@@ -53,14 +45,11 @@ const makeInvitesFromUsernames = async (
     console.log("inviting the following users:", invitedUsernames);
     const promises = invitedUsernames.map(u => getUidFromUsername(u));
     const uids = await Promise.all(promises);
-    const invites: _invite[] = uids.map(
-      (uid, i) =>
-        ({
-          uid,
-          username: invitedUsernames[i],
-          status: "PENDING"
-        } as _invite)
-    );
+    const invites: _invite[] = uids.map((uid, i) => ({
+      uid,
+      username: invitedUsernames[i],
+      status: "PENDING"
+    }));
     console.log("invites created:", invites);
     resolve(invites);
   });
@@ -235,6 +224,7 @@ const addPlayerToGame = async (
   /// need to create updateDigests function
   console.log(`adding player with UID ${uid} to game ${gameKey}`);
   const _gameRef = _gamesRef.child(gameKey);
+  const thisGame = await get_gameFromGameKey(gameKey);
   const playersRef = _gameRef.child("players");
   const user = await getUserFromUsername(username);
   const { photoURL } = user.public;
@@ -245,6 +235,10 @@ const addPlayerToGame = async (
     photoURL,
     uid
   };
+  // if player is invited, remove invite
+  if (checkInvite(thisGame, player.uid)) {
+    await removeInviteFrom_game(gameKey, player.uid);
+  }
   // add player to _game.players
   await playersRef.child(uid).set(thisPlayer);
   // add gameDigest to users.{username}.{uid}.games.{gameKey}
@@ -255,6 +249,18 @@ const addPlayerToGame = async (
     .ref(`users/${keyify(username)}/${uid}/games/${gameKey}`)
     .set(createGameDigestFrom_game(game));
   await Promise.all([p2, updateDigests(gameKey)]);
+};
+
+const removeInviteFrom_game = (gameKey: string, uid: string): Promise<null> => {
+  return new Promise(async (resolve, reject) => {
+    const invitesRef = db.ref(`_games/${gameKey}/invites`);
+    const oldInvites: _invite[] = await invitesRef.once("value");
+    const newInvites: _invite[] = oldInvites.filter(i => i.uid !== uid);
+    invitesRef
+      .set(newInvites)
+      .then(() => resolve())
+      .catch(reason => reject(reason));
+  });
 };
 
 const updateDigests = (gameKey: string): Promise<{}> =>
@@ -281,7 +287,7 @@ const updateUserDigest = async (
   const uid = await getUidFromUsername(username);
   const game = await get_gameFromGameKey(gameKey);
   return new Promise((resolve, reject) => {
-    db.ref(`users/${username}/${uid}/games/${gameKey}`)
+    db.ref(`users/${keyify(username)}/${uid}/games/${gameKey}`)
       .set(createGameDigestFrom_game(game))
       .then(() => resolve())
       .catch(reason => reject(reason));

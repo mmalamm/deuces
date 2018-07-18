@@ -22,7 +22,8 @@ const mapStateToProps = ({ games, openGames, invites, auth }) => ({
   games: values(games),
   openGames: values(openGames),
   invites: values(invites),
-  username: auth.username.toLowerCase()
+  username: auth.username,
+  usernameKey: auth.username.toLowerCase()
 });
 
 const mapDispatchToProps = dispatch =>

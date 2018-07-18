@@ -4,13 +4,13 @@ import DeleteButton from "./DeleteButton";
 
 class Gamelist extends Component {
   componentDidMount() {
-    this.props.startListeningToGameChanges(this.props.username);
-    this.props.startListeningToInviteChanges(this.props.username);
+    this.props.startListeningToGameChanges(this.props.usernameKey);
+    this.props.startListeningToInviteChanges(this.props.usernameKey);
     this.props.startListeningToOpenGameChanges();
   }
   componentWillUnmount() {
-    this.props.stopListeningToGameChanges(this.props.username);
-    this.props.stopListeningToInviteChanges(this.props.username);
+    this.props.stopListeningToGameChanges(this.props.usernameKey);
+    this.props.stopListeningToInviteChanges(this.props.usernameKey);
     this.props.stopListeningToOpenGameChanges();
   }
   deleteGame = gameKey => {
@@ -19,9 +19,6 @@ class Gamelist extends Component {
     };
   };
   render() {
-    console.log(this.props.games);
-    console.log(this.props.invites);
-    console.log(this.props.openGames);
     const { games, invites, openGames } = this.props;
     return (
       <div className="Gamelist">
