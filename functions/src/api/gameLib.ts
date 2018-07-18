@@ -139,7 +139,7 @@ const get_gameFromGameKey = (gameKey: string): Promise<_game> =>
           reject(new Error("game not found"));
         }
       })
-      .catch(e => console.error(e));
+      .catch(reason => reject(reason));
   });
 
 const deleteGamerefsFromUsernames = (
@@ -166,7 +166,7 @@ const make_gameAndGetKey = (game): Promise<string> =>
           console.log(`game ${gameKey} made:`, game);
           resolve(gameKey);
         })
-        .catch(e => console.error(e));
+        .catch(reason => reject(reason));
     });
   });
 
@@ -183,7 +183,7 @@ const getNextPositionFromGamekey = (gameKey: string): Promise<number> =>
           : 0;
         resolve(position);
       })
-      .catch(e => console.error(e));
+      .catch(reason => reject(reason));
   });
 
 const digestPlayers = (playersObj: {}): Player[] =>
@@ -226,38 +226,38 @@ const addGameToOpenGames = (gameKey: string) =>
     resolve({ [gameKey]: digest });
   });
 
-const addPlayerToGame = async (playerUid, gameKey) => {
+const addPlayerToGame = async (
+  player: { uid: string; username: string },
+  gameKey
+) => {
+  const { username, uid } = player;
   /// refactor this
   /// need to create updateDigests function
-  console.log(`adding player with UID ${playerUid} to game ${gameKey}`);
+  console.log(`adding player with UID ${uid} to game ${gameKey}`);
   const _gameRef = _gamesRef.child(gameKey);
   const playersRef = _gameRef.child("players");
-  const username = await getUsernameFromUid(playerUid);
   const user = await getUserFromUsername(username);
   const { photoURL } = user.public;
   const position = await getNextPositionFromGamekey(gameKey);
-  const player: _player = {
+  const thisPlayer: _player = {
     position,
     username,
     photoURL,
-    uid: playerUid
+    uid
   };
   // add player to _game.players
-  await playersRef.child(playerUid).set(player);
+  await playersRef.child(uid).set(thisPlayer);
   // add gameDigest to users.{username}.{uid}.games.{gameKey}
   const gameSnapshot = await _gameRef.once("value");
   const game = gameSnapshot.val();
 
   const p2 = db
-    .ref(`users/${keyify(username)}/${playerUid}/games/${gameKey}`)
+    .ref(`users/${keyify(username)}/${uid}/games/${gameKey}`)
     .set(createGameDigestFrom_game(game));
-  await Promise.all([p2, updateGame(gameKey)]);
+  await Promise.all([p2, updateDigests(gameKey)]);
 };
 
-//////////////////////////////
-//////////////////////////////
-//////////////////////////////
-const updateGame = (gameKey: string): Promise<{}> =>
+const updateDigests = (gameKey: string): Promise<{}> =>
   new Promise(async (resolve, reject) => {
     // need to update all digests
     // invites and games
@@ -267,14 +267,14 @@ const updateGame = (gameKey: string): Promise<{}> =>
     const gameRefsPromises = Object.keys(thisGame.players)
       .map(uid => thisGame.players[uid])
       .map(p => p.username)
-      .map(u => updateUserGameref(u, gameKey));
+      .map(u => updateUserDigest(u, gameKey));
 
-    return Promise.all([invitesPromise, ...gameRefsPromises]).then(() =>
-      resolve()
-    );
+    return Promise.all([invitesPromise, ...gameRefsPromises])
+      .then(() => resolve())
+      .catch(reason => reject(reason));
   });
 
-const updateUserGameref = async (
+const updateUserDigest = async (
   username: string,
   gameKey: string
 ): Promise<{}> => {
@@ -283,12 +283,10 @@ const updateUserGameref = async (
   return new Promise((resolve, reject) => {
     db.ref(`users/${username}/${uid}/games/${gameKey}`)
       .set(createGameDigestFrom_game(game))
-      .then(() => resolve());
+      .then(() => resolve())
+      .catch(reason => reject(reason));
   });
 };
-//////////////////////////////
-//////////////////////////////
-//////////////////////////////
 
 const sendInvites = async (
   gameKey: string,
