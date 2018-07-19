@@ -1,8 +1,9 @@
-import { db, keyify } from "../admin";
+import { db, keyify, getUsernameFromUid } from "../admin";
 
 const changePhotoFn = async (req, res) => {
   const { downloadURL } = req.body;
-  const { uid, username } = req;
+  const { uid } = req;
+  const username = await getUsernameFromUid(uid);
 
   const p1 = db
     .ref(`users/${keyify(username)}/public/photoURL`)

@@ -82,6 +82,9 @@
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   transition: background-color 0.2s linear;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
 }
 
 .NewUserForm-buttonDisabled {

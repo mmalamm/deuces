@@ -40,13 +40,9 @@ export const getUsernameFromUid = (uid: string): Promise<string> =>
     db.ref(`_users/${uid}/username`)
       .once("value", snapshot => {
         const username: string = snapshot.val();
-        if (username) {
-          resolve(username);
-        } else {
-          reject(new Error("username not found"));
-        }
+        resolve(username);
       })
-      .catch(e => console.error(e));
+      .catch(reason => reject(reason));
   });
 
 export const getUserFromUsername = (

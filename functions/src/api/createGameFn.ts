@@ -7,9 +7,12 @@ import {
   _game
 } from "./gameLib";
 
+import { getUsernameFromUid } from "../admin";
+
 const createGameFn = async (req, res) => {
   const { gameName, inviteOnly, invitedUsernames } = req.body;
-  const { uid, username } = req;
+  const { uid } = req;
+  const username = await getUsernameFromUid(uid);
 
   /// validations
   /// if invite only, there must be at least 3 invites

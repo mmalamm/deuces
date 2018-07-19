@@ -69,6 +69,7 @@ class NewUserForm extends Component {
     }
   };
   handleKeyPress = e => {
+    e.preventDefault();
     if (e.key === "Enter") this.handleSubmit();
   };
   render() {
@@ -112,14 +113,14 @@ class NewUserForm extends Component {
             this.inputField = input;
           }}
         />
-        <div
+        <button
           className={`NewUserForm-button ${
             buttonDisabled ? "NewUserForm-buttonDisabled" : ""
           }`}
           onClick={this.handleSubmit}
         >
           {buttonText}
-        </div>
+        </button>
         <div className="NewUserForm-signoutText">
           or{" "}
           <a className="NewUserForm-link" onClick={signOut}>

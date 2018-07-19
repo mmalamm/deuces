@@ -27,6 +27,7 @@
 
 .Login-button {
   background-color: black;
+  border: none;
   color: var(--slate);
   margin: 0.5rem;
   height: 2.5rem;

@@ -80,6 +80,7 @@ export const startListeningToAuthChanges = () => {
         const callback = snapshot => {
           dispatch({ type: "ATTEMPTING_LOGIN" });
           const userData = snapshot.val();
+          console.log("broken partttt:::", userData);
           if (userData) {
             dispatch(signedIn(userData));
             dbRef.off("value", callback);
