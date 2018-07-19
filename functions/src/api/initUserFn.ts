@@ -1,11 +1,11 @@
 import { getUserFromUsername, setUsernameAndCreateUser } from "../admin";
+import { Handler } from "express";
 
 const isValidUsername = (uname: string): boolean =>
   !!uname.toLowerCase().match(/^[a-z0-9]{4,20}$/);
 
-const initUserFn = async (req, res) => {
-  const { username } = req.body;
-  const { uid } = req;
+const initUserFn: Handler = async (req, res) => {
+  const { username, uid } = req.body;
   const user = await getUserFromUsername(username);
 
   if (user) {
@@ -16,7 +16,7 @@ const initUserFn = async (req, res) => {
     return res.status(417).send("username is invalid");
   }
 
-  setUsernameAndCreateUser(username, uid)
+  return setUsernameAndCreateUser(username, uid)
     .then(_user => {
       res.json(_user);
     })

@@ -10,8 +10,7 @@ import {
 import { getUsernameFromUid } from "../admin";
 
 const createGameFn = async (req, res) => {
-  const { gameName, inviteOnly, invitedUsernames } = req.body;
-  const { uid } = req;
+  const { gameName, inviteOnly, invitedUsernames, uid } = req.body;
   const username = await getUsernameFromUid(uid);
 
   /// validations

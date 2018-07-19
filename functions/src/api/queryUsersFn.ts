@@ -1,7 +1,8 @@
 import { db } from "../admin";
+import { Handler } from "express";
 
-const queryUsersFn = (req, res) => {
-  const { input } = req.body;
+const queryUsersFn: Handler = (req, res) => {
+  const { input, uid } = req.body;
   /// need to build this out into an endpoint to improve newGameForm UI
   db.ref()
     .child("users")
@@ -13,7 +14,7 @@ const queryUsersFn = (req, res) => {
       const incomingData = ss.val();
       if (incomingData) {
         const outgoingData = Object.keys(incomingData)
-          .filter(k => incomingData[k].uid !== req.uid)
+          .filter(k => incomingData[k].uid !== uid)
           .map(k => incomingData[k].public);
         res.json(outgoingData);
       } else {

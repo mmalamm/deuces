@@ -1,8 +1,7 @@
 import { db, keyify, getUsernameFromUid } from "../admin";
 
 const changePhotoFn = async (req, res) => {
-  const { downloadURL } = req.body;
-  const { uid } = req;
+  const { downloadURL, uid } = req.body;
   const username = await getUsernameFromUid(uid);
 
   const p1 = db

@@ -1,10 +1,11 @@
 import { getUidFromToken } from "../admin";
+import { Handler } from "express";
 
-export default async (req, res, next) => {
+const authFn: Handler = async (req, res, next) => {
   const { idToken } = req.body;
   if (idToken) {
     const uid = await getUidFromToken(idToken);
-    req.uid = uid;
+    req.body.uid = uid;
     console.log(`Authenticated user (uid: ${uid})`);
     next();
   } else {
@@ -12,3 +13,5 @@ export default async (req, res, next) => {
     next();
   }
 };
+
+export default authFn;

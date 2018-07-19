@@ -6,8 +6,7 @@ import {
 } from "./gameLib";
 
 const deleteGameFn = async (req, res) => {
-  const { uid } = req;
-  const { gameKey } = req.body;
+  const { gameKey, uid } = req.body;
 
   const gameToDelete = await get_gameFromGameKey(gameKey);
   console.log(gameToDelete);
