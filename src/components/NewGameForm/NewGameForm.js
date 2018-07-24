@@ -52,7 +52,7 @@ class NewGameForm extends Component {
         </div>
         <h2>Create New Game</h2>
         <div>Game Name:</div>
-        <input onChange={this.handleChange} />
+        <input className="NewGameForm-nameInput" onChange={this.handleChange} />
         <label>
           <span>Invite Only?</span>
           <Toggle defaultChecked={inviteOnly} onChange={this.handleToggle} />

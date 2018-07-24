@@ -3,7 +3,14 @@ import "./Homebar.css";
 
 class Homebar extends Component {
   render() {
-    const { showNewGameForm, signOut, username, photoURL, points } = this.props;
+    const {
+      showNewGameForm,
+      signOut,
+      username,
+      photoURL,
+      points,
+      modal
+    } = this.props;
     return (
       <div className="Homebar">
         <div className="Homebar-userinfo">
@@ -17,10 +24,18 @@ class Homebar extends Component {
           <p className="Homebar-userinfo-txt">{points}</p>
         </div>
         <div className="Homebar-buttons">
-          <button className="Homebar-button" onClick={showNewGameForm}>
+          <button
+            className="Homebar-button"
+            disabled={!!modal}
+            onClick={showNewGameForm}
+          >
             New Game
           </button>
-          <button className="Homebar-button" onClick={signOut}>
+          <button
+            className="Homebar-button"
+            disabled={!!modal}
+            onClick={signOut}
+          >
             Sign Out
           </button>
         </div>

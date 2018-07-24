@@ -6,7 +6,7 @@ import Login from "../../containers/Login";
 import "./App.css";
 import NewUserForm from "../../containers/NewUserForm";
 import Logo from "../AssetsSVG/Logo";
-import renderModal from './renderModal';
+import renderModal from "./renderModal";
 
 class App extends Component {
   renderHomescreen = () => {
