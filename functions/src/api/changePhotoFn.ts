@@ -1,6 +1,7 @@
 import { db, keyify, getUsernameFromUid } from "../admin";
+import { RequestHandler } from "express";
 
-const changePhotoFn = async (req, res) => {
+const changePhotoFn: RequestHandler = async (req, res) => {
   const { downloadURL, uid } = req.body;
   const username = await getUsernameFromUid(uid);
 

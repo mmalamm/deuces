@@ -5,7 +5,9 @@ import {
   delete_gameFromGamekey
 } from "./gameLib";
 
-const deleteGameFn = async (req, res) => {
+import { RequestHandler } from "express";
+
+const deleteGameFn: RequestHandler = async (req, res) => {
   const { gameKey, uid } = req.body;
 
   const gameToDelete = await get_gameFromGameKey(gameKey);
@@ -35,7 +37,7 @@ const deleteGameFn = async (req, res) => {
     : [];
   const _gameDeletionPromise = [delete_gameFromGamekey(gameKey)];
 
-  Promise.all([
+  return Promise.all([
     ...playerGamerefDeletionPromises,
     opengamesDeletionPromise,
     _gameDeletionPromise

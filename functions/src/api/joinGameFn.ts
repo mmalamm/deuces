@@ -1,8 +1,8 @@
 import { get_gameFromGameKey, checkInvite, addPlayerToGame } from "./gameLib";
 import { getUsernameFromUid } from "../admin";
-import { Handler } from "express";
+import { RequestHandler } from "express";
 
-const joinGameFn: Handler = async (req, res) => {
+const joinGameFn: RequestHandler = async (req, res) => {
   const { gameKey, uid } = req.body;
   const username = await getUsernameFromUid(uid);
 

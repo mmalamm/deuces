@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+import { Application } from "express";
+
 import initUserFn from "./initUserFn";
 import changePhotoFn from "./changePhotoFn";
 import createGameFn from "./createGameFn";
@@ -9,7 +11,7 @@ import queryUsersFn from "./queryUsersFn";
 import authenticate from "./authenticate";
 import deleteGameFn from "./deleteGameFn";
 
-const app = express();
+const app: Application = express();
 
 app.use(cors());
 app.use(authenticate);

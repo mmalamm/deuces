@@ -76,7 +76,7 @@ export const setUsernameAndCreateUser = async (
   const { email, displayName, photoURL, points } = await get_userFromUid(uid);
   const userRef = db.ref(`users/${keyify(username)}`);
   const userObj = {
-    public: { photoURL, username: username },
+    public: { photoURL, username },
     [uid]: { uid, usernameKey: keyify(username) },
     uid
   };
@@ -96,6 +96,6 @@ export const setUsernameAndCreateUser = async (
       .then(() => {
         resolve(output);
       })
-      .catch(e => console.error(e));
+      .catch(reason => reject(reason));
   });
 };

@@ -7,9 +7,11 @@ import {
   _game
 } from "./gameLib";
 
+import { RequestHandler } from "express";
+
 import { getUsernameFromUid } from "../admin";
 
-const createGameFn = async (req, res) => {
+const createGameFn: RequestHandler = async (req, res) => {
   const { gameName, inviteOnly, invitedUsernames, uid } = req.body;
   const username = await getUsernameFromUid(uid);
 
@@ -43,7 +45,7 @@ const createGameFn = async (req, res) => {
     await addGameToOpenGames(gameKey);
   }
 
-  res.send("Game created");
+  return res.send("Game created");
 };
 
 export default createGameFn;
