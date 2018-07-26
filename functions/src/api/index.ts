@@ -11,15 +11,27 @@ import queryUsersFn from "./queryUsersFn";
 import authenticate from "./authenticate";
 import deleteGameFn from "./deleteGameFn";
 
+import registerRoutes from "../helpers/registerRoutes";
+
+const routes = {
+  init_user: initUserFn,
+  change_photo: changePhotoFn,
+  create_game: createGameFn,
+  join_game: joinGameFn,
+  query_users: queryUsersFn,
+  delete_game: deleteGameFn
+};
+
 const app: Application = express();
 
 app.use(cors());
 app.use(authenticate);
-app.post("/init_user", initUserFn);
-app.post("/change_photo", changePhotoFn);
-app.post("/create_game", createGameFn);
-app.post("/join_game", joinGameFn);
-app.post("/query_users", queryUsersFn);
-app.post("/delete_game", deleteGameFn);
+// app.post("/init_user", initUserFn);
+// app.post("/change_photo", changePhotoFn);
+// app.post("/create_game", createGameFn);
+// app.post("/join_game", joinGameFn);
+// app.post("/query_users", queryUsersFn);
+// app.post("/delete_game", deleteGameFn);
+registerRoutes(app, routes);
 
 export default app;
