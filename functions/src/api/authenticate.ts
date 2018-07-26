@@ -14,4 +14,4 @@ const authFn: Handler = async (req, res, next) => {
   }
 };
 
-export default authFn;
+export default () => authFn;

@@ -25,13 +25,7 @@ const routes = {
 const app: Application = express();
 
 app.use(cors());
-app.use(authenticate);
-// app.post("/init_user", initUserFn);
-// app.post("/change_photo", changePhotoFn);
-// app.post("/create_game", createGameFn);
-// app.post("/join_game", joinGameFn);
-// app.post("/query_users", queryUsersFn);
-// app.post("/delete_game", deleteGameFn);
+app.use(authenticate());
 registerRoutes(app, routes);
 
 export default app;
