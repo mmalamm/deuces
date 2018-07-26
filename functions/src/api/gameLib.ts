@@ -35,8 +35,8 @@ export interface _game {
 const _gamesRef = db.ref("_games");
 const openGamesRef = db.ref("openGames");
 
-const checkInvite = (game: _game, playerUid: string): boolean =>
-  !!game.invites.map(i => i.uid).find(uid => uid === playerUid);
+const checkInvite = (game: _game, playerUid: string): boolean => game.invites ?
+  !!game.invites.map(i => i.uid).find(uid => uid === playerUid) : false;
 
 const makeInvitesFromUsernames = async (
   invitedUsernames: string[]
@@ -268,7 +268,7 @@ const updateDigests = (gameKey: string): Promise<{}> =>
     // need to update all digests
     // invites and games
     const thisGame = await get_gameFromGameKey(gameKey);
-    const invitesPromise = sendInvites(gameKey, thisGame.invites);
+    const invitesPromise = sendInvites(gameKey, thisGame.invites || []);
     // working on this still
     const gameRefsPromises = Object.keys(thisGame.players)
       .map(uid => thisGame.players[uid])

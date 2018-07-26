@@ -8,6 +8,8 @@ export default function gamesReducer(state = initialState.games, action) {
       return null;
     case "RECIEVE_GAMES":
       return action.games;
+    case "UPDATE_GAMES":
+      return action.games;
     case "RECIEVE_GAME":
       return { ...state, ...action.game };
     case "REMOVE_GAME":

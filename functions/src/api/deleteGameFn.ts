@@ -12,6 +12,7 @@ const deleteGameFn: RequestHandler = async (req, res) => {
 
   const gameToDelete = await get_gameFromGameKey(gameKey);
   console.log(gameToDelete);
+  const { players, invites } = gameToDelete;
 
   if (gameToDelete.gameStatus !== "NEW_GAME") {
     return res
@@ -22,10 +23,10 @@ const deleteGameFn: RequestHandler = async (req, res) => {
     return res.status(401).send("You can only delete a game that you created");
   }
 
-  const joinedPlayers = Object.keys(gameToDelete.players).map(
-    uid => gameToDelete.players[uid].username
+  const joinedPlayers = Object.keys(players).map(
+    uidKey => players[uidKey].username
   );
-  const invitedPlayers = gameToDelete.invites.map(i => i.username);
+  const invitedPlayers = invites ? invites.map(i => i.username) : [];
 
   const playerGamerefDeletionPromises = deleteGamerefsFromUsernames(
     [...joinedPlayers, ...invitedPlayers],

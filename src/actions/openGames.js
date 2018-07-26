@@ -9,8 +9,15 @@ const removeOpenGame = gameData => ({
   type: "REMOVE_OPEN_GAME",
   openGame: gameData
 });
+const updateOpenGames = gamesData => ({
+  type: "UPDATE_OPEN_GAMES",
+  openGames: gamesData
+});
 
-let receiveOpenGameHandler, removeOpenGameHandler, openGamesRef;
+let receiveOpenGameHandler,
+  removeOpenGameHandler,
+  updateGamesHandler,
+  openGamesRef;
 
 export const startListeningToOpenGameChanges = () => {
   openGamesRef = database.ref("openGames");
@@ -28,12 +35,19 @@ export const startListeningToOpenGameChanges = () => {
         dispatch(removeOpenGame(openGameData));
       }
     });
+    updateGamesHandler = openGamesRef.on("value", snapshot => {
+      const openGamesData = snapshot.val();
+      if (openGamesData) {
+        dispatch(updateOpenGames(openGamesData));
+      }
+    });
   };
 };
 
 export const stopListeningToOpenGameChanges = () => {
   openGamesRef.off(child_added, receiveOpenGameHandler);
   openGamesRef.off(child_removed, removeOpenGameHandler);
+  openGamesRef.off("value", updateGamesHandler);
   return dispatch => {
     dispatch({ type: "STOP_LISTENING_TO_OPEN_GAME_CHANGES" });
   };

@@ -7,6 +7,8 @@ export default function openGamesReducer(
   action
 ) {
   switch (action.type) {
+    case "UPDATE_OPEN_GAMES":
+      return { ...action.openGames };
     case "RECIEVE_OPEN_GAME":
       return { ...state, ...action.openGame };
     case "REMOVE_OPEN_GAME":

@@ -3,12 +3,13 @@ import { create_game, delete_game } from "../utils/api";
 import { child_added, child_removed } from "../utils/constants";
 import axios from "axios";
 
-let receiveGameHandler, removeGameHandler, userGamesRef;
+let receiveGameHandler, removeGameHandler, updateGamesHandler, userGamesRef;
 
 const receiveGame = gameData => {
   return { type: "RECIEVE_GAME", game: gameData };
 };
 const removeGame = gameData => ({ type: "REMOVE_GAME", game: gameData });
+const updateGames = gamesData => ({ type: "UPDATE_GAMES", games: gamesData });
 
 export const submitNewGameForm = data => {
   const { gameName, inviteOnly, invitedUsernames } = data;
@@ -58,12 +59,17 @@ export const startListeningToGameChanges = usernameKey => {
         dispatch(removeGame(gameData));
       }
     });
+    updateGamesHandler = userGamesRef.on("value", snapshot => {
+      const gamesData = snapshot.val();
+      if (gamesData) dispatch(updateGames(gamesData));
+    });
   };
 };
 
 export const stopListeningToGameChanges = () => {
   userGamesRef.off(child_added, receiveGameHandler);
   userGamesRef.off(child_removed, removeGameHandler);
+  userGamesRef.off("value", updateGamesHandler);
   return dispatch => {
     dispatch({ type: "STOP_LISTENING_TO_GAME_CHANGES" });
   };
