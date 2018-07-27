@@ -5,6 +5,8 @@ import AddedList from "./AddedList";
 import "./NewGameForm.css";
 import "./Toggle.css";
 
+import isEqual from "lodash/isEqual";
+
 class NewGameForm extends Component {
   state = {
     gameName: "",
@@ -36,7 +38,11 @@ class NewGameForm extends Component {
       () => console.log(this.state)
     );
   };
-
+  removeUser = user => {
+    this.setState(oldState => ({
+      invitedUsers: oldState.invitedUsers.filter(u => !isEqual(u, user))
+    }));
+  };
   isOnList = name => !!this.state.invitedUsernames.find(n => n === name);
 
   render() {
@@ -58,7 +64,7 @@ class NewGameForm extends Component {
           <Toggle defaultChecked={inviteOnly} onChange={this.handleToggle} />
         </label>
         <InviteMaker isOnList={this.isOnList} addUser={this.addUser} />
-        <AddedList invitedUsers={invitedUsers} />
+        <AddedList invitedUsers={invitedUsers} removeUser={this.removeUser} />
         <button onClick={this.handleSubmit}>Create Game</button>
       </div>
     );

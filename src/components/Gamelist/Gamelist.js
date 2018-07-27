@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./Gamelist.css";
 import DeleteButton from "./DeleteButton";
 
+import Invite from "./Invite";
+
 class Gamelist extends Component {
   componentDidMount() {
     this.props.startListeningToGameChanges(this.props.usernameKey);
@@ -13,26 +15,21 @@ class Gamelist extends Component {
     this.props.stopListeningToInviteChanges(this.props.usernameKey);
     this.props.stopListeningToOpenGameChanges();
   }
-  deleteGame = gameKey => {
-    return e => {
-      this.props.deleteGame(gameKey);
-    };
+  deleteGame = gameKey => e => {
+    this.props.deleteGame(gameKey);
   };
-  render() {
-    const { games, invites, openGames } = this.props;
-    return (
-      <div className="Gamelist">
-        <h1>bovine corvus</h1>
-        {invites.length !== 0 && <h2>Invites</h2>}
-        {invites.length !== 0 && (
-          <div>
-            {invites.map(i => (
-              <div key={i.gameKey}>
-                <h3>invite!</h3>
-              </div>
-            ))}
-          </div>
-        )}
+  renderInvites = invites =>
+    invites.length ? (
+      <div>
+        <h3>Invites</h3>
+        <div>
+          {invites.map(inv => <Invite key={inv.gameKey} invite={inv} />)}
+        </div>
+      </div>
+    ) : null;
+  renderGames = games =>
+    games.length ? (
+      <div>
         <h2>My Games</h2>
         <div>
           {games.map(g => (
@@ -44,6 +41,15 @@ class Gamelist extends Component {
             </div>
           ))}
         </div>
+      </div>
+    ) : null;
+  render() {
+    const { games, invites, openGames } = this.props;
+    return (
+      <div className="Gamelist">
+        <h1>bovine corvus</h1>
+        {this.renderInvites(invites)}
+        {this.renderGames(games)}
         <h2>Open Games</h2>
         <div>
           {openGames.map(g => (
