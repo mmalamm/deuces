@@ -25,4 +25,10 @@ export const deleteUser = functions.auth
 
 import app from "./api";
 
+functions.database.ref("/_games").onCreate((snapshot, context) => {
+  const snapshotVal = snapshot.val();
+  console.log("from rdb function:", snapshotVal);
+  console.log("context is:", context);
+});
+
 export const api = functions.https.onRequest(app);
