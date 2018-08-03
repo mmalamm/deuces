@@ -2,8 +2,7 @@
   "rules": {
     "_users": {
       "$uid": {
-        ".read": "$uid === auth.uid",
-        ".write": false
+        ".read": "$uid === auth.uid"
       }
     },
     "users": {
@@ -11,6 +10,7 @@
         "public": { ".read": true },
         "$uid": { ".read": "$uid === auth.uid" }
       }
-    }
+    },
+    "openGames": { ".read": true }
   }
 }

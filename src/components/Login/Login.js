@@ -10,12 +10,12 @@ const Login = ({ signInWithGoogle, signInWithGithub }) => {
       <AnimatedLogo cls="Login-bcLogo" />
       <h2 className="Login-name">锄大地 DEUCES</h2>
       <div className="Login-label">Log in with:</div>
-      <div className="Login-button" onClick={signInWithGoogle}>
+      <button className="Login-button" onClick={signInWithGoogle}>
         <img className="Login-Logo" src={GoogleLogo} alt="" />
-      </div>
-      <div className="Login-button" onClick={signInWithGithub}>
+      </button>
+      <button className="Login-button" onClick={signInWithGithub}>
         <img className="Login-Logo" src={GithubLogo} alt="" />
-      </div>
+      </button>
     </div>
   );
 };

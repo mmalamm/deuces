@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import ChangePicForm from "../components/ChangePicForm";
+import ChangePicForm from "../components/ChangePicForm/ChangePicForm";
 import { updatePhotoURL } from "../actions/auth";
 import { hideModal } from "../actions/modal";
 

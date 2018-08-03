@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import App from "../components/App";
+import App from "../components/App/App";
 import { signOut } from "../actions/auth";
 
 const mapStateToProps = ({ auth, modals, modal }) => {

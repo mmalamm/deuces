@@ -23,9 +23,7 @@ class Modal extends Component {
 
   _render() {
     ReactDOM.render(
-      <Provider store={store}>
-        {this.props.children}
-      </Provider>,
+      <Provider store={store}>{this.props.children}</Provider>,
       this.modalTarget
     );
   }
@@ -33,5 +31,7 @@ class Modal extends Component {
     return <noscript />;
   }
 }
+
+export const modalize = component => <Modal>{component}</Modal>;
 
 export default Modal;

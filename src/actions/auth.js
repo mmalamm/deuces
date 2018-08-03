@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { init_user } from "../utils/api";
+
 import {
   auth,
   googleAuthProvider,
@@ -47,14 +49,12 @@ const signedOut = () => {
 
 export const submitNewUserForm = formData => {
   console.log(formData);
-  const initUserEndpointURL =
-    "https://us-central1-deuces-bovinecorvus.cloudfunctions.net/api/init_user";
 
   return dispatch => {
     dispatch({ type: "ATTEMPTING_LOGIN" });
     auth.currentUser.getIdToken(true).then(idToken => {
       axios
-        .post(initUserEndpointURL, {
+        .post(init_user, {
           ...formData,
           idToken
         })
