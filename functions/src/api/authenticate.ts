@@ -1,4 +1,5 @@
 import { getUidFromToken } from "../admin";
+// import { getUidFromToken } from "./index";
 import { Handler } from "express";
 
 const authFn: Handler = async (req, res, next) => {

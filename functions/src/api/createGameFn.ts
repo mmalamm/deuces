@@ -10,6 +10,7 @@ import {
 import { RequestHandler } from "express";
 
 import { getUsernameFromUid } from "../admin";
+// import { getUsernameFromUid } from "./index";
 
 const createGameFn: RequestHandler = async (req, res) => {
   const { gameName, inviteOnly, invitedUsernames, uid } = req.body;

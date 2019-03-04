@@ -27,7 +27,8 @@ export const getUidFromToken = (idToken: string): Promise<string> =>
 
 export const getUidFromUsername = (username: string): Promise<string> =>
   new Promise((resolve, reject) => {
-    db.ref(`users/${keyify(username)}/uid`)
+    db
+      .ref(`users/${keyify(username)}/uid`)
       .once("value", snapshot => {
         const uid: string = snapshot.val();
         resolve(uid);
@@ -37,7 +38,8 @@ export const getUidFromUsername = (username: string): Promise<string> =>
 
 export const getUsernameFromUid = (uid: string): Promise<string> =>
   new Promise((resolve, reject) => {
-    db.ref(`_users/${uid}/username`)
+    db
+      .ref(`_users/${uid}/username`)
       .once("value", snapshot => {
         const username: string = snapshot.val();
         resolve(username);
@@ -49,7 +51,8 @@ export const getUserFromUsername = (
   uName: string
 ): Promise<{ public: { photoURL: string; username: string } }> =>
   new Promise((resolve, reject) => {
-    db.ref("users")
+    db
+      .ref("users")
       .child(keyify(uName))
       .once("value", snapshot => {
         const userObj = snapshot.val();
@@ -60,7 +63,8 @@ export const getUserFromUsername = (
 
 const get_userFromUid = (uid: string): Promise<_user> =>
   new Promise((resolve, reject) => {
-    db.ref("_users")
+    db
+      .ref("_users")
       .child(uid)
       .once("value", snapshot => {
         const _userObj: _user = snapshot.val();

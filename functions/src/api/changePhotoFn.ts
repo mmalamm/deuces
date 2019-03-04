@@ -1,4 +1,5 @@
 import { db, keyify, getUsernameFromUid } from "../admin";
+// import { db, keyify, getUsernameFromUid } from "./index";
 import { RequestHandler } from "express";
 
 const changePhotoFn: RequestHandler = async (req, res) => {

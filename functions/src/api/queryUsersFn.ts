@@ -1,10 +1,12 @@
 import { db } from "../admin";
+// import { db } from "./index";
 import { Handler } from "express";
 
 const queryUsersFn: Handler = (req, res) => {
   const { input, uid } = req.body;
   /// need to build this out into an endpoint to improve newGameForm UI
-  db.ref()
+  db
+    .ref()
     .child("users")
     .orderByKey()
     .startAt(input)
